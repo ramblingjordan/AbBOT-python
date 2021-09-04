@@ -123,12 +123,6 @@ Now we can install the required Python 3 packages for this project.
 pip3 install -r ./requirements.txt
 ```
 
-### Generating text dynamically
-
-To make use of a feature that will generate the text of your tip dynamically on each submission, set the --generate option on the command line. This will make it harder to automatically filter out these tips.
-
-By default this will use a generic API key, which may be disabled if used excessively. If you'd like to use your own key, make a free account at [DeepAI](https://deepai.org/machine-learning-model/text-generator) and use the API key generated for you found on your profile page. Set the environment variable 'DEEP_AI_KEY' to this value by running `export DEEP_AI_KEY=your AI key goes here` (you may need to do this every time you start the program). 
-
 #### Running the program
 
 Please ensure you're running the script with sudo, or someone with read and write access to `/etc/hosts`.
@@ -162,6 +156,13 @@ To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
 ![reCaptcha in Chrome on the left side. Terminal running main.py and denoting a successful POST request on the right side.](https://cdn.discordapp.com/attachments/883159187666919549/883350251833028668/unknown.png)
 
+
+### Generating text dynamically
+
+To make use of a feature that will generate the text of your tip dynamically on each submission, set the --generate option on the command line. This will make it harder to automatically filter out these tips.
+
+By default this will use a generic API key, which may be disabled if used excessively. If you'd like to use your own key, make a free account at [DeepAI](https://deepai.org/machine-learning-model/text-generator) and use the API key generated for you found on your profile page. Set the environment variable 'DEEP_AI_KEY' to this value by running `export DEEP_AI_KEY=your AI key goes here` (you may need to do this every time you start the program). 
+
 ## Usage
 
 ```text
@@ -172,4 +173,6 @@ optional arguments:
   -v, --verbose         Increases the verbosity of the output.
   -c COUNT, --count COUNT
                         Set a maximum number of times to successfully submit to the form.
+  -g, --generate
+                        Generate GPT2 text from DeepAI API with key set by environment variable or default.
 ```
