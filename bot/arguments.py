@@ -20,5 +20,8 @@ parser.add_argument(
   type=str,
   default='prolifewhistleblower.com'
 )
+parser.add_argument(
+  '-n', '--nonce', help='Specify a nonce to use for the form submission. Skips the request for a nonce.', type=str, default=None
+)
 
 args = parser.parse_args()
