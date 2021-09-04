@@ -106,6 +106,8 @@ def anonymous_form(token):
   nonce = get_nonce()
   if nonce == None:
     return
+  else:
+    data['forminator_nonce'] = nonce
 
   success = False
   redirection.end_redirect()
