@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import random
+from typos import add_typos
+from rand_select import random_select_weighted_list
 
 suspect_words = [
     'suspect',
@@ -86,6 +88,8 @@ my_nonfamily_words = [
     (0.3, 'maid'),
     (0.2, 'live-in maid'),
     (0.1, 'live in maid'),
+    (0.2, 'housekeeper'),
+    (0.1, 'cleaning lady'),
     (2.0, 'ex'),
     (0.3, 'therapist'),
     (0.5, 'supervisor'),
@@ -123,7 +127,14 @@ my_teacher_possessive_adj = [
 ]
 my_teacher_possessive_adj = [ (k[0], k[1] + "'s ") for k in my_teacher_possessive_adj ]
 violated_words = [
-    'violated', 'disregarded', 'disobeyed'
+    'violated',
+    'disregarded',
+    'disobeyed',
+    'helped someone violate',
+    'helped violate',
+    'helped someone get an abortion in violation of',
+    'helped someone have an abortion in violation of',
+    'helped someone disobey',
 ]
 days_of_the_week = [
     'Sunday',
@@ -135,7 +146,7 @@ days_of_the_week = [
     'Saturday',
 ]
 got_words = [
-    'got', 'had'
+    'got', 'had', 'helped someone get'
 ]
 past_time_frames = [
     'last week', 'last month', 'this week', 'this month', 'yesterday', 'a week ago', 'two weeks ago', 'two days ago', 'on the weekend', 'this weekend', 'last weekend'
@@ -143,7 +154,7 @@ past_time_frames = [
 past_time_frames.extend([ 'last ' + k for k in days_of_the_week ])
 past_time_frames.extend([ 'on ' + k for k in days_of_the_week ])
 will_get_words = [
-    'is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get'
+    'is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get', 'is helping someone get'
 ]
 future_time_frames = [
     'next week', 'this week', 'tomorrow', 'two days from now', 'a week from now', 'after she leaves work', 'after work', 'on the weekend', 'this weekend', 'next weekend'
@@ -155,9 +166,6 @@ abortion_ban_words = [
 ]
 abortion_ban_words = [ *["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words] ]
 abortion_ban_words.extend(['Texas law', 'the new law'])
-
-def random_select_weighted_list(ls):
-    return random.choices([k[1] for k in ls], weights = [k[0] for k in ls], k = 1)[0]
 
 def gen_abortion_prompt_I(accused):
     abortion_prompt = 'I '
@@ -184,7 +192,7 @@ def gen_abortion_prompt_My(accused):
     abortion_prompt += ' an'
     abortion_prompt += random.choices(['', ' illegal', ' unlawful'], weights = [ 0.625, 0.375 / 2.0, 0.375 / 2.0 ], k = 1)[0]
     abortion_prompt += ' abortion'
-    if random.random() > 0.5:
+    if past:
         abortion_prompt += ' '
         if past:
             abortion_prompt += random.choice(past_time_frames)
@@ -209,14 +217,15 @@ def gen_abortion_prompt():
         (5.2, gen_abortion_prompt_I(accused)),
         (2.6, gen_abortion_prompt_My(accused))
     ]
-    return random_select_weighted_list(abortion_prompts)
+    return add_typos(random_select_weighted_list(abortion_prompts))
 
 if __name__ == "__main__":
     total_number = 2000000
     sample_abortion_prompts = { gen_abortion_prompt() for k in range(total_number) }
+    print('succ')
     for k in sorted(list(sample_abortion_prompts)[:200], key = lambda o: random.random()):
         print(k)
-    print(total_number - len(sample_abortion_prompts))
-    print(len(sample_abortion_prompts))
-    print(len([k for k in sample_abortion_prompts if 'I' in k]))
-    print(len(sample_abortion_prompts) - len([k for k in sample_abortion_prompts if 'I' in k]))
+    print('Duplicates: ' + str(total_number - len(sample_abortion_prompts)))
+    print('Unique:     ' + str(len(sample_abortion_prompts)))
+    print('I [think]:  ' + str(len([k for k in sample_abortion_prompts if 'I' in k])))
+    print('Other:      ' + str(len(sample_abortion_prompts) - len([k for k in sample_abortion_prompts if 'I' in k])))
