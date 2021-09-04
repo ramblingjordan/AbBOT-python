@@ -12,6 +12,9 @@ We're going to do two things:
 - Here's a step-by-step video on installing WSL you can follow along with: 
 
 
+[![Install WSL](./imgs/Windows-WSL-Install-Vimeo.png)](https://vimeo.com/597950782)
+
+
 
 2. Install [Nix (the package manager)](https://nixos.org/)
 
@@ -133,15 +136,16 @@ This just tells Windows you want to use WSL version 2 going foward.
 
 ## 2. Install Nix
 
-Here's step-by-step video for installing Nix.
+Here's step-by-step video for installing Nix on Windows. The steps are mostly the same as in the Install Nix section of the project [README](../README.md).
 
+[![Install Nix Windows](./imgs/Windows-Nix-Install-Vimeo.png)](https://vimeo.com/597899648)
 
 
 ## Trouble Shooting
 
 - First, check out the official [Windows Subsystem for Linux Installation Guide for Windows 10 guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and see if it has your answer there.
 
-- Still having trouble? Jump on the Discord and look for `Zhou.Enlai`, or email me at [zh0u.enlai@pm.me](mailto:zh0u.enlai@pm.me?subject=Pls%20Help%3A%20Troubleshooting%20Nix%20Install%20for%20Windows) with the subject `Pls Help: Installing Nix for Windows`. Admittedly, I'm not a Windows user, and may not have an answer, but I'll bet I can help you find somewhere to look! 
+- Still having trouble? Jump on the Discord and look for `Zhou.Enlai`, or email me at [zh0u(dott)enlai(at)pm.me](mailto:zh0u(dott)enlai@pm.me?subject=Pls%20Help%3A%20Troubleshooting%20Nix%20Install%20for%20Windows) (replacing the "dott" and "at" with the proper email characters), using the subject `Pls Help: Installing Nix for Windows`. Admittedly, I'm not a Windows user, and may not have an answer, but I'll bet I can help you find somewhere to look! 
 
     - I'm pretty friendly so please don't feel intimidated-- I was new too once, and there are no stupid questions!
 
