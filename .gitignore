@@ -2,6 +2,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode
 
+### Nix ### 
+
+result
+
+### MacOS ###
+
+**/.DS_Store
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -144,7 +152,8 @@ cython_debug/
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
+!.vscode### VisualStudioCode ###
+.vscode//settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
