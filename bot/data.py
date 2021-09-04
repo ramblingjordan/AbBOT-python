@@ -4,6 +4,7 @@ import os
 import random
 import requests
 import json
+import csv
 
 from .arguments import args
 from .logger import logger
@@ -402,17 +403,52 @@ ips = [
 
 # random element from each list
 
+# Randomize doctor name format
+# Read in first names and pick one
+with open('bot/data/fns.csv') as fns:
+	reader2 = csv.reader(fns)
+	chosen_first=random.choice(list(fns))
+# Read in last names and pick one
+with open('bot/data/lns.csv') as lns:
+	reader3=csv.reader(lns)
+	chosen_last=random.choice(list(lns))
+# Choose a name format
+nF = random.choice(['FL','DL','L,F','L', 'DLF', 'IL', 'DIL'])
+
+if nF == 'FL':
+	dr = " ".join([chosen_first,chosen_last])
+elif nF == 'DL':
+	dr = " ".join(["Dr.",chosen_last])
+elif nF == 'L,F':
+	dr = ", ".join([chosen_last,chosen_first])
+elif nF == 'L':
+	dr = chosen_last
+elif nf == 'DLF':
+	dr = " ".join(["Dr.",chosen_first,chosen_last])
+elif nf == 'IL':
+	dr = "".join([chosen_first[0],". ",chosen_last])
+elif nf == 'DIL':
+	dr = "".join("Dr. ",[chosen_first[0],". ",chosen_last])
+
+# Chose a state format
+stateName = random.choice(['TX','Texas','TEXAS','texas','tx','Tx'])
+
+# Read in zip code / city / county combos and select one to populate the form
+with open('bot/data/TX_Zips.csv') as zf:
+	reader = csv.reader(zf)
+	chosen_row=random.choice(list(reader))
+	
 def anonymous_form():
   while True:
     city, county = random.choice(list(cities.items()))
     form_data = {
       'textarea-1': get_tip_body(),
       'text-1': random.choice(info_location),
-      'text-6': 'Dr. ' + random.choice(maleFirstNames) + ' ' + random.choice(lastNames),
-      'text-2': city,
-      'text-3': 'Texas',
-      'text-4': str(random.randint(75001, 79942)),
-      'text-5': county,
+      'text-6': dr,
+      'text-2': chosen_row[1],
+      'text-3': stateName,
+      'text-4': chosen_row[0],
+      'text-5': chosen_row[2],
       'hidden-1': random.choice(ips) + str(random.randint(0, 255)),
       'checkbox-1[]': 'no',
     }
