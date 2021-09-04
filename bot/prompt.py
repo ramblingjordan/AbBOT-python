@@ -2,17 +2,19 @@
 import random
 from typos import add_typos
 from rand_select import random_select_weighted_list
+from collections import Counter
 
 suspect_words = [
-    'suspect',
-    'have reason to suspect',
-    'believe',
-    'have reason to believe',
-    'think',
-    'have evidence',
-    'have strong evidence',
-    'am convinced',
-    'am certain',
+    (1.0, 'suspect'),
+    (0.3, 'have reason to suspect'),
+    (1.0, 'believe'),
+    (0.3, 'have reason to believe'),
+    (1.0, 'think'),
+    (0.5, 'have evidence'),
+    (0.2, 'have strong evidence'),
+    (1.0, 'am convinced'),
+    (1.0, 'am certain'),
+    (1.0, 'can prove'),
 ]
 my_family_words = [
     (0.5, 'father'),
@@ -127,14 +129,60 @@ my_teacher_possessive_adj = [
 ]
 my_teacher_possessive_adj = [ (k[0], k[1] + "'s ") for k in my_teacher_possessive_adj ]
 violated_words = [
-    'violated',
-    'disregarded',
-    'disobeyed',
-    'helped someone violate',
-    'helped violate',
-    'helped someone get an abortion in violation of',
-    'helped someone have an abortion in violation of',
-    'helped someone disobey',
+    (8.0, 'violated'),
+    (8.0, 'disregarded'),
+    (8.0, 'disobeyed'),
+    (8.0, 'assisted someone in violating'),
+    (8.0, 'assisted someone in breaking'),
+    (8.0, 'assisted someone in disobeying'),
+    (2.0, 'helped someone violate'),
+    (2.0, 'helped someone disobey'),
+    (2.0, 'helped someone break'),
+    (2.0, 'helped violate'),
+    (0.4, 'helped someone get an abortion in violation of'),
+    (0.4, 'helped someone have an abortion in violation of'),
+    (0.4, 'helped someone get an abortion, violating'),
+    (0.4, 'helped someone have an abortion, violating'),
+    (0.4, 'helped someone get an abortion, breaking'),
+    (0.4, 'helped someone have an abortion, breaking'),
+    (0.4, 'helped someone abort her child and disobey'),
+    (0.4, 'helped someone abort her baby and disobey'),
+    (0.4, 'helped someone abort her child and violate'),
+    (0.4, 'helped someone abort her baby and violate'),
+    (0.1, 'helped someone kill her child and disobey'),
+    (0.1, 'helped someone kill her baby and disobey'),
+    (0.1, 'helped someone kill her child and violate'),
+    (0.1, 'helped someone kill her baby and violate'),
+    (0.1, 'helped someone murder her child and disobey'),
+    (0.1, 'helped someone murder her baby and disobey'),
+    (0.1, 'helped someone murder her child and violate'),
+    (0.1, 'helped someone murder her baby and violate'),
+    (0.1, 'helped someone kill a child and disobey'),
+    (0.1, 'helped someone kill a baby and disobey'),
+    (0.1, 'helped someone kill a child and violate'),
+    (0.1, 'helped someone kill a baby and violate'),
+    (0.1, 'helped someone murder a child and disobey'),
+    (0.1, 'helped someone murder a baby and disobey'),
+    (0.2, 'helped someone murder a child in violation of'),
+    (0.2, 'helped someone murder a baby in violation of'),
+    (0.2, 'helped someone kill her child in violation of'),
+    (0.2, 'helped someone kill her baby in violation of'),
+    (0.2, 'helped someone murder her child in violation of'),
+    (0.2, 'helped someone murder her baby in violation of'),
+    (0.2, 'helped someone kill a child in violation of'),
+    (0.2, 'helped someone kill a baby in violation of'),
+    (0.2, 'helped someone murder a child in violation of'),
+    (0.2, 'helped someone murder a baby in violation of'),
+    (0.1, 'helped someone murder a child, violating'),
+    (0.1, 'helped someone murder a baby, violating'),
+    (0.1, 'helped someone kill her child, violating'),
+    (0.1, 'helped someone kill her baby, violating'),
+    (0.1, 'helped someone murder her child, violating'),
+    (0.1, 'helped someone murder her baby, violating'),
+    (0.1, 'helped someone kill a child, violating'),
+    (0.1, 'helped someone kill a baby, violating'),
+    (0.1, 'helped someone murder a child, violating'),
+    (0.1, 'helped someone murder a baby, violating'),
 ]
 days_of_the_week = [
     'Sunday',
@@ -169,12 +217,12 @@ abortion_ban_words.extend(['Texas law', 'the new law'])
 
 def gen_abortion_prompt_I(accused):
     abortion_prompt = 'I '
-    abortion_prompt += random.choice(suspect_words)
+    abortion_prompt += random_select_weighted_list(suspect_words)
     abortion_prompt += random.choices([' that', ''], weights = [0.75, 0.25], k = 1)[0]
     abortion_prompt += ' my '
     abortion_prompt += accused
     abortion_prompt += random.choice([' has ', ' '])
-    abortion_prompt += random.choice(violated_words)
+    abortion_prompt += random_select_weighted_list(violated_words)
     abortion_prompt += ' '
     abortion_prompt += random.choice(abortion_ban_words)
     abortion_prompt += '.'
@@ -217,15 +265,41 @@ def gen_abortion_prompt():
         (5.2, gen_abortion_prompt_I(accused)),
         (2.6, gen_abortion_prompt_My(accused))
     ]
-    return add_typos(random_select_weighted_list(abortion_prompts))
+    return random_select_weighted_list(abortion_prompts)
+    #return add_typos(random_select_weighted_list(abortion_prompts))
+
+bigram_counter = Counter()
+trigram_counter = Counter()
+quadgram_counter = Counter()
+
+def check_ngram_frequency(prompt):
+    words = prompt.split()
+    for i in range(len(words) - 1):
+        cur_bigram = ' '.join(words[i:i+2])
+        bigram_counter[cur_bigram] += 1
+    for i in range(len(words) - 2):
+        cur_trigram = ' '.join(words[i:i+3])
+        trigram_counter[cur_trigram] += 1
+    for i in range(len(words) - 3):
+        cur_quadgram = ' '.join(words[i:i+4])
+        quadgram_counter[cur_quadgram] += 1
+    return prompt
 
 if __name__ == "__main__":
     total_number = 2000000
-    sample_abortion_prompts = { gen_abortion_prompt() for k in range(total_number) }
-    print('succ')
+    sample_abortion_prompts = { check_ngram_frequency(gen_abortion_prompt()) for k in range(total_number) }
     for k in sorted(list(sample_abortion_prompts)[:200], key = lambda o: random.random()):
         print(k)
     print('Duplicates: ' + str(total_number - len(sample_abortion_prompts)))
     print('Unique:     ' + str(len(sample_abortion_prompts)))
     print('I [think]:  ' + str(len([k for k in sample_abortion_prompts if 'I' in k])))
     print('Other:      ' + str(len(sample_abortion_prompts) - len([k for k in sample_abortion_prompts if 'I' in k])))
+    with open('bigram_freq.txt', 'w') as writer:
+        for k,v in  bigram_counter.most_common():
+            writer.write( "{} {}\n".format(k,v) )
+    with open('trigram_freq.txt', 'w') as writer:
+        for k,v in  trigram_counter.most_common():
+            writer.write( "{} {}\n".format(k,v) )
+    with open('quadgram_freq.txt', 'w') as writer:
+        for k,v in  quadgram_counter.most_common():
+            writer.write( "{} {}\n".format(k,v) )
