@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 def gen_typo_odds():
-    return 1.0 - (random.betavariate(5, 1.5) * 0.3 + 0.6995)
+    return 1.0 - (random.betavariate(16, 2) * 0.3 + 0.6995)
 
 def add_typos(in_str):
     typo_odds = gen_typo_odds()
