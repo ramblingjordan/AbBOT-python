@@ -222,7 +222,6 @@ def gen_abortion_prompt():
 if __name__ == "__main__":
     total_number = 2000000
     sample_abortion_prompts = { gen_abortion_prompt() for k in range(total_number) }
-    print('succ')
     for k in sorted(list(sample_abortion_prompts)[:200], key = lambda o: random.random()):
         print(k)
     print('Duplicates: ' + str(total_number - len(sample_abortion_prompts)))
