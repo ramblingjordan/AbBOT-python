@@ -56,7 +56,7 @@ class ReCaptchaRequestHandler(BaseHTTPRequestHandler):
 
         if args.count != None and success_count >= args.count:
           print(
-            'Shutting dowin with {} success{}, {} failure{}.'.format(
+            'Shutting down with {} success{}, {} failure{}.'.format(
               success_count, '' if success_count == 1 else 'es', failure_count, '' if failure_count == 1 else 's'
             )
           )

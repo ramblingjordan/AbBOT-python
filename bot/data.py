@@ -243,7 +243,7 @@ def anonymous_form():
       'text-4': str(random.randint(75001, 79942)),
       'text-5': county,
       'hidden-1': random.choice(ips) + str(random.randint(0, 255)),
-      'checkbox-1[]': 'yes' if random.choice([True, False]) else 'no',
+      'checkbox-1[]': 'no',
     }
     yield form_data
 
