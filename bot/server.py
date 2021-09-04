@@ -81,11 +81,15 @@ class ReCaptchaRequestHandler(BaseHTTPRequestHandler):
 
 
 def serve():
+  # Append URL to hosts file
   redirection.redirect()
 
+  #Creating Extended Base HTTP server
   server_address = ('', 8000)
   httpd = HTTPServer(server_address, ReCaptchaRequestHandler)
   print('Starting the web server at http://prolifewhistleblower.com:8000/')
+  
+  #Serving until Ctrl+C, then gracefully exiting
   try:
     httpd.serve_forever()
   except KeyboardInterrupt:
