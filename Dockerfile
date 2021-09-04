@@ -34,4 +34,4 @@ COPY /bot ./bot
 RUN pip3 install -r requirements.txt
 
 ENV PATH="$PATH:/usr/bin/chromedriver"
-CMD ["python3", "-u", "main.py"]
+CMD ["python3", "-u", "main.py", "-v"]
