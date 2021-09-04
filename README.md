@@ -74,8 +74,6 @@ If you don't have `python3` or `pip3` installed, you can install the `python3` p
 
 ```bash
 sudo apt install python3
-# or
-brew install python3
 ```
 
 Now we can install the required Python 3 packages for this project.
@@ -86,7 +84,7 @@ pip3 install -r ./requirements.txt
 
 #### Running the program
 
-Please ensure you're running the script with sudo, or someone with read and write access to `/etc/hosts`.
+Please ensure you're running the script with sudo, or a user with read and write access to `/etc/hosts`.
 
 ```bash
 sudo python3 ./main.py
@@ -94,7 +92,7 @@ sudo python3 ./main.py
 sudo ./main.py
 ```
 
-If you installed `python3`/`pip3` with `brew` (or installed Python to your account and not to the system in another way), you will want to keep your `PATH` when using `sudo`.
+If you installed `python3`/`pip3` t to your account and not to the system, you will want to keep your `PATH` when using `sudo`.
 
 ```bash
 sudo env "PATH=$PATH" python3 ./main.py
@@ -113,7 +111,7 @@ POST request complete.
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
-### OSX
+### macOS
 
 If you don't have `python3` or `pip3` installed you can either download the installer from the [Python 3.9.7 release page](https://www.python.org/downloads/release/python-397/) or install it with `brew`.
 
