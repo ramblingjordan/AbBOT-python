@@ -149,6 +149,91 @@ From the command line, in the AbBot directory, run the following command:
 
 The binary to run now exists in the newly created `result` directory, and can be run with
 
+
+It's often used in addition to Docker (Docker does containerization, Nix handles dependency management).
+
+#### Step 1.1: Install Nix
+
+```bash
+sh <(curl -L https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.4pre20210823_af94b54/install) --daemon
+```
+
+I use the Nix flakes installer at [https://github.com/numtide/nix-flakes-installer](https://github.com/numtide/nix-flakes-installer)
+
+*Warning*: One should always look at the source of a script before curl + sh'ing it. This one is safe, but you should verify for yourself :). 
+
+  - (Windows Only) Step 1.1.1: Run
+
+```bash
+chown -R $(whoami) /nix
+```
+
+This changes the owner of the nix root directory to your current user.
+
+#### Step 1.2: Allow Nix Flakes
+
+Copy+Paste the following command into your shell. It has comments in it describing what each line means (denoted by lines starting with a '#').
+
+```bash
+sudo echo "# Configuration for the Nix package manager.
+#
+# To read detailed explanations about these options, please see [1].
+# [1] - https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+#
+# Lets us use the 'nix' command and 'flakes' [2]
+# [2] - https://nixos.wiki/wiki/Flakes
+#
+experimental-features = nix-command flakes
+
+# Good for development
+keep-outputs = true
+
+# The default
+keep-derivations = true
+" >> /etc/nix/nix.conf
+```
+
+
+Flakes a nice way of declaritively interacting with Nix, but since they're experimental, we have to tell Nix explicitly that we want to use them.
+
+
+### Step 3: Checkout the Git repo
+
+#### Step 3.1: Install Git
+If you don't already have Git installed, no worries! Just run the following command:
+
+```bash
+nix-env -iA nixpkgs.git
+```
+
+Explanation: 
+
+- `nix-env`: Tells nix to do something to your user environment (instead of an isolated shell).
+- `nix-env -iA`: "(i)nstall a certain package/(A)ttribute with a certain name from a certain place that we're about to tell you, to the user environment"
+
+
+All together now: 
+
+- `nix-env -iA nixpkgs.git`: "From the package collection [nixpkgs](https://github.com/NixOS/nixpkgs), install the attribute named 'git' to the local user environment."
+
+
+At this point, you have 'git' installed, and can use it from the command line like normal.
+
+#### Step 3.2: Checkout the `AbBot` package 
+
+```bash
+git clone https://github.com/SeanDaBlack/AbBOT.git
+cd AbBot
+```
+
+### Step 4: Build the application
+
+From the command line, in the AbBot directory, run the following command: 
+
+`nix build`
+
+The binary to run now exists in the newly created `result` directory, and can be run with
+
 `sudo ./result/bin/abbot`
 
 This directory will be created (and the package rebuilt) every time you run `nix-build`.
