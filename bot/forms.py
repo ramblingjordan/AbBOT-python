@@ -33,7 +33,7 @@ def get_nonce():
   }
 
   nonce = None
-  redirection.end_redirect()
+  redirection.redirect_to_target()
   logger.debug('Initiating GET request to /wp-admin/admin-ajax.php for the nonce.')
   try:
     response = requests.post('https://prolifewhistleblower.com/wp-admin/admin-ajax.php', data=payload, headers=headers)
@@ -51,7 +51,7 @@ def get_nonce():
     logger.error('Unable to retrieve the required nonce.')
     logger.debug(error)
   finally:
-    redirection.redirect()
+    redirection.redirect_to_localhost()
     return nonce
 
 
@@ -101,7 +101,6 @@ def anonymous_form(token):
     data[key] = generated_data[key]
   encoded_data = MultipartEncoder(fields=data)
   headers['content-type'] = encoded_data.content_type
-  data = encoded_data.to_string()
 
   nonce = get_nonce()
   if nonce == None:
@@ -110,7 +109,8 @@ def anonymous_form(token):
     data['forminator_nonce'] = nonce
 
   success = False
-  redirection.end_redirect()
+  data = encoded_data.to_string()
+  redirection.redirect_to_target()
   logger.debug('Initiating POST request to /wp-admin/admin-ajax.php to submit the form data.')
   try:
     response = session.post('https://prolifewhistleblower.com/wp-admin/admin-ajax.php', headers=headers, data=data)
@@ -131,7 +131,7 @@ def anonymous_form(token):
     logger.error('Unable to submit the form data.')
     logger.debug(error)
   finally:
-    redirection.redirect()
+    redirection.redirect_to_localhost()
     return success
 
 

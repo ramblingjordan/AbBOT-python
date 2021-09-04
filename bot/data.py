@@ -402,6 +402,7 @@ ips = [
 
 # random element from each list
 
+
 def anonymous_form():
   while True:
     city, county = random.choice(list(cities.items()))
@@ -418,8 +419,10 @@ def anonymous_form():
     }
     yield form_data
 
+
 def sign_up_page():
   raise NotImplementedError()
+
 
 def get_tip_body():
   rv = ''
@@ -432,11 +435,9 @@ def get_tip_body():
     else:
       logger.info('Using default key.')
     prompt = random.choice(gpt2_prompts)
-    r = requests.post(
-      "https://api.deepai.org/api/text-generator", data={
-        'text': prompt,
-      }, headers={'api-key': key}
-    )
+    r = requests.post("https://api.deepai.org/api/text-generator", data={
+      'text': prompt,
+    }, headers={'api-key': key})
     rv = str(r.json()['output'].encode('utf-8'))
     # cut out the prompt, which comes from a limited set and can be filtered on
     rv = rv.replace(prompt, '').lstrip()
