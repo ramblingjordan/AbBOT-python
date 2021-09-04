@@ -6,7 +6,7 @@ Credit to SeanDaBlack for the basis of the script.
 
 https://discord.gg/PrAWWCCpDg
 
-### FAQ
+## FAQ
 
 If you have a question, before dropping into the Discord, check out our [FAQ page](https://github.com/SeanDaBlack/AbBOT/blob/main/FAQ.md) and see if your question has already been answered.
 
@@ -109,12 +109,17 @@ Flakes a nice way of declaritively interacting with Nix, but since they're exper
 
 ### Step 3: Checkout the Git repo
 
-#### Step 3.1: Install Git
+#### Step 3.1: Install Git and Docker
 If you don't already have Git installed, no worries! Just run the following command:
 
 ```bash
 nix-env -iA nixpkgs.git
 ```
+
+```bash
+nix-env -iA nixpkgs.docker
+```
+
 
 Explanation: 
 
@@ -167,7 +172,43 @@ Form submitted successfully.
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
+### Docker Compose
 
+- First, [install Docker](https://docs.docker.com/get-docker/).
+
+#### Setting up Your Machine
+
+You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
+
+### Building the Container
+
+- Clone this repository
+- Go to the root directory of the repository
+- Run `docker-compose build` to build the container
+
+### Running the Container
+
+- Run `docker-compose up`
+
+### Docker Container (without docker-compose)
+
+- First, [install Docker](https://docs.docker.com/get-docker/).
+
+#### Setting up Your Machine
+
+You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
+
+#### Building the container
+
+- Clone this repository
+- Go to the root directory of the repository
+- Run `docker build -t abbot .` to build the container
+
+#### Running the Program
+
+Run `docker run -p 8000:8000 --name abbot abbot`
+
+This will start the web server.
 ## How it looks in action
 
 ![reCaptcha in Chrome on the left side. Terminal running main.py and denoting a successful POST request on the right side.](https://cdn.discordapp.com/attachments/883159187666919549/883350251833028668/unknown.png)
