@@ -39,9 +39,7 @@ cd AbBot
 
 If you don't already have `python3.exe` and `pip3.exe` installed on Windows, you can install them from the Microsoft Store.
 
-
 https://www.microsoft.com/en-us/p/python-39/9p7qfqmjrfp7
-
 
 Now we can install the required Python 3 packages for this project.
 
@@ -62,8 +60,8 @@ Then, you will see the following message, "Starting the web server at http://pro
 If you see a message exactly like the following the following in your terminal, then it was successful. If it was not successful, let us know so we can try to fix the issue.
 
 ```text
-POST request complete.
-{"success":true,"data":{"message":"<p>Thank you, we will be working on this shortly.<\/p>","success":true,"behav":"behaviour-hide"}}
+Form submitted successfully.
+21:17:31 bot.logger - [INFO] 1 success, 0 failures
 ```
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
@@ -105,8 +103,8 @@ Then, you will see the following message, "Starting the web server at http://pro
 If you see a message exactly like the following the following in your terminal, then it was successful. If it was not successful, let us know so we can try to fix the issue.
 
 ```text
-POST request complete.
-{"success":true,"data":{"message":"<p>Thank you, we will be working on this shortly.<\/p>","success":true,"behav":"behaviour-hide"}}
+Form submitted successfully.
+21:17:31 bot.logger - [INFO] 1 success, 0 failures
 ```
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
@@ -125,11 +123,9 @@ Now we can install the required Python 3 packages for this project.
 pip3 install -r ./requirements.txt
 ```
 
-
 ### Generating text dynamically
 
 To make use of a feature that will generate the text of your tip dynamically on each submission, make a free account at [DeepAI](https://deepai.org/machine-learning-model/text-generator) and use the API key generated for you found on your profile page. Set the environment variable 'DEEP_AI_KEY' to this value by running `export DEEP_AI_KEY=your AI key goes here` (you may need to do this every time you start the program). This will make it harder to automatically filter out these tips.
-
 
 #### Running the program
 
@@ -154,8 +150,8 @@ Then, you will see the following message, "Starting the web server at http://pro
 If you see a message exactly like the following the following in your terminal, then it was successful. If it was not successful, let us know so we can try to fix the issue.
 
 ```text
-POST request complete.
-{"success":true,"data":{"message":"<p>Thank you, we will be working on this shortly.<\/p>","success":true,"behav":"behaviour-hide"}}
+Form submitted successfully.
+21:17:31 bot.logger - [INFO] 1 success, 0 failures
 ```
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
