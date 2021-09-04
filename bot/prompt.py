@@ -67,13 +67,9 @@ subjects = [
 ]
 my_teacher_words = [
   (1.0, 'teacher'),
-  *[
-    (0.2, k + ' teacher') for k in subjects
-  ],
+  *[(0.2, k + ' teacher') for k in subjects],
   (0.5, 'tutor'),
-  *[
-    (0.1, k + ' tutor') for k in subjects
-  ],
+  *[(0.1, k + ' tutor') for k in subjects],
   (1.0, 'babysitter')
 ]
 my_nonfamily_words = [
@@ -104,13 +100,9 @@ my_nonfamily_words = [
   (0.8, 'priest'),
   (0.2, 'accountant'),
 ]
-my_family_possessive_adj = [
-  (k[0], k[1] + "'s ") for k in my_nonfamily_words
-]
+my_family_possessive_adj = [(k[0], k[1] + "'s ") for k in my_nonfamily_words]
 my_family_possessive_adj.append((20.0, ''))
-my_nonfamily_possessive_adj = [
-  (k[0], k[1] + "'s ") for k in my_family_words
-]
+my_nonfamily_possessive_adj = [(k[0], k[1] + "'s ") for k in my_family_words]
 my_nonfamily_possessive_adj.append((20.0, ''))
 my_teacher_possessive_adj = [
   (0.2, 'younger brother'),
@@ -197,28 +189,34 @@ got_words = [
   'got', 'had', 'helped someone get'
 ]
 past_time_frames = [
-  'last week', 'last month', 'this week', 'this month', 'yesterday', 'a week ago', 'two weeks ago', 'two days ago', 'on the weekend', 'this weekend', 'last weekend'
+  'last week', 'last month', 'this week', 'this month', 'yesterday', 'a week ago', 'two weeks ago', 'two days ago', 'on the weekend',
+  'this weekend', 'last weekend'
 ]
 past_time_frames.extend([ 'last ' + k for k in days_of_the_week ])
 past_time_frames.extend([ 'on ' + k for k in days_of_the_week ])
 will_get_words = [
   'is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get', 'is helping someone get'
 ]
+past_time_frames.extend(['last ' + k for k in days_of_the_week])
+past_time_frames.extend(['on ' + k for k in days_of_the_week])
+will_get_words = ['is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get']
 future_time_frames = [
-  'next week', 'this week', 'tomorrow', 'two days from now', 'a week from now', 'after she leaves work', 'after work', 'on the weekend', 'this weekend', 'next weekend'
+  'next week', 'this week', 'tomorrow', 'two days from now', 'a week from now', 'after she leaves work', 'after work', 'on the weekend',
+  'this weekend', 'next weekend'
 ]
-future_time_frames.extend([ 'next ' + k for k in days_of_the_week ])
-future_time_frames.extend([ 'on ' + k for k in days_of_the_week ])
+future_time_frames.extend(['next ' + k for k in days_of_the_week])
+future_time_frames.extend(['on ' + k for k in days_of_the_week])
 abortion_ban_words = [
-  'abortion ban', 'ban on abortion', 'new abortion law', 'law on abortion', 'recent abortion law', 'abortion restrictions', 'restrictions on abortion', 'law'
+  'abortion ban', 'ban on abortion', 'new abortion law', 'law on abortion', 'recent abortion law', 'abortion restrictions',
+  'restrictions on abortion', 'law'
 ]
-abortion_ban_words = [ *["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words] ]
+abortion_ban_words = [*["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words]]
 abortion_ban_words.extend(['Texas law', 'the new law'])
 
 def gen_abortion_prompt_I(accused):
   abortion_prompt = 'I '
   abortion_prompt += random_select_weighted_list(suspect_words)
-  abortion_prompt += random.choices([' that', ''], weights = [0.75, 0.25], k = 1)[0]
+  abortion_prompt += random.choices([' that', ''], weights=[0.75, 0.25], k=1)[0]
   abortion_prompt += ' my '
   abortion_prompt += accused
   abortion_prompt += random.choice([' has ', ' '])
@@ -238,14 +236,14 @@ def gen_abortion_prompt_My(accused):
   else:
     abortion_prompt += random.choice(will_get_words)
   abortion_prompt += ' an'
-  abortion_prompt += random.choices(['', ' illegal', ' unlawful'], weights = [ 0.625, 0.375 / 2.0, 0.375 / 2.0 ], k = 1)[0]
+  abortion_prompt += random.choices(['', ' illegal', ' unlawful'], weights=[0.625, 0.375 / 2.0, 0.375 / 2.0], k=1)[0]
   abortion_prompt += ' abortion'
-  if past:
+  if random.random() > 0.5:
     abortion_prompt += ' '
     if past:
-        abortion_prompt += random.choice(past_time_frames)
+      abortion_prompt += random.choice(past_time_frames)
     else:
-        abortion_prompt += random.choice(future_time_frames)
+      abortion_prompt += random.choice(future_time_frames)
   abortion_prompt += '.'
   return abortion_prompt
 

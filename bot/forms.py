@@ -4,6 +4,7 @@ import requests
 import re
 import json
 
+from .arguments import args
 from .logger import logger
 from . import data
 from . import redirection
@@ -33,25 +34,25 @@ def get_nonce():
   }
 
   nonce = None
-  redirection.end_redirect()
-  logger.debug('Initiating GET request to /wp-admin/admin-ajax.php for the nonce.')
+  redirection.redirect_to_target()
+  logger.debug('Initiating POST request to /wp-admin/admin-ajax.php for the nonce.')
   try:
     response = requests.post('https://prolifewhistleblower.com/wp-admin/admin-ajax.php', data=payload, headers=headers)
     match = re.search(r'name=\\"forminator_nonce\\" value=\\"(?P<nonce>.+?)\\"', response.text)
     if match == None or not match.group('nonce'):
       nonce = None
       logger.debug('Did not find nonce.')
-      logger.debug(response.status_code)
-      logger.debug(response.headers)
-      logger.debug(response.text)
+      logger.debug(f'HTTP Response Status Code: {response.status_code}')
+      logger.debug(f'HTTP Response Headers: {response.headers}')
+      logger.debug(f'HTTP Response Content: {response.text}')
     else:
       nonce = match.group('nonce')
-      logger.debug('Found nonce: {}'.format(nonce))
+      logger.debug(f'Found nonce: {nonce}')
   except requests.exception.RequestException as error:
     logger.error('Unable to retrieve the required nonce.')
     logger.debug(error)
   finally:
-    redirection.redirect()
+    redirection.redirect_to_localhost()
     return nonce
 
 
@@ -101,20 +102,28 @@ def anonymous_form(token):
     data[key] = generated_data[key]
   encoded_data = MultipartEncoder(fields=data)
   headers['content-type'] = encoded_data.content_type
-  data = encoded_data.to_string()
 
-  nonce = get_nonce()
-  if nonce == None:
+  nonce = None
+  if args.nonce is not None:
+    logger.debug(f'Got nonce from command-line argument: {args.nonce}')
+    nonce = args.nonce
+  else:
+    nonce = get_nonce()
+
+  if nonce is None:
     return
+  else:
+    data['forminator_nonce'] = nonce
 
   success = False
-  redirection.end_redirect()
+  data = encoded_data.to_string()
+  redirection.redirect_to_target()
   logger.debug('Initiating POST request to /wp-admin/admin-ajax.php to submit the form data.')
   try:
     response = session.post('https://prolifewhistleblower.com/wp-admin/admin-ajax.php', headers=headers, data=data)
     try:
       result = response.json()
-      if result['success'] == True:
+      if result['success'] is True:
         success = True
     except json.decoder.JSONDecodeError as error:
       pass
@@ -129,7 +138,7 @@ def anonymous_form(token):
     logger.error('Unable to submit the form data.')
     logger.debug(error)
   finally:
-    redirection.redirect()
+    redirection.redirect_to_localhost()
     return success
 
 
