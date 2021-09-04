@@ -209,20 +209,32 @@ zip_codes = [
 
 # TX IPs gathered from here: https://www.xmyip.com/ip-addresses/united--states/texas
 ips = [
+  "64.46.160.",  # Addison
   "24.27.72.", # Allen
   "65.65.132.", # Alpine
   "50.175.228.", # Alvin
   "50.175.229.", # Alvin
+  "50.26.131.",  # Amarillo
   "23.117.126.", # Arlington
+  "8.34.145.",  # Austin
   "24.153.156.", # Austin
+  "24.155.228.",  # Austin
   "66.193.112.", # Austin
   "66.193.113.", # Austin
   "50.94.23.", # Austin
   "24.173.59.", # Beaumont
   "63.174.138.", # Beaumont
   "24.219.225.", # Benbrook
+  "24.32.117.",  # Clarksville
   "50.15.108.", # Conroe
   "50.21.240.", # Conroe
+  "66.170.212.",  # Conroe
+  "67.67.45.",  # Coppell
+  "12.53.23.",  # Dallas
+  "12.56.225.",  # Dallas
+  "12.134.216.",  # Dallas
+  "12.135.64.",  # Dallas
+  "12.209.171.",  # Dallas
   "32.144.6.", # Dallas
   "32.144.7.", # Dallas
   "17.253.118.", # Dallas
@@ -284,22 +296,58 @@ ips = [
   "23.33.245.", # Dallas
   "23.33.246.", # Dallas
   "23.33.247.", # Dallas
+  "23.95.39.",  # Dallas
+  "23.216.55.",  # Dallas
+  "23.218.192.",  # Dallas
+  "24.219.28.",  # Dallas
+  "32.144.40.",  # Dallas
+  "50.84.221.",  # Dallas
+  "63.25.84.",  # Dallas
+  "63.133.145.",  # Dallas
+  "63.234.233.",  # Dallas
+  "64.195.173.",  # Dallas
+  "65.44.75.",  # Dallas
   "66.106.98.", # Dallas
+  "67.48.192.",  # Dallas
+  "68.95.146.",  # Dallas
   "47.184.118.", # Denton
   "47.184.119.", # Denton
   "47.184.120.", # Denton
   "47.184.121.", # Denton
   "24.206.145.", # Denton
+  "24.219.171.",  # Denton
+  "68.116.255.",  # Denton
+  "67.10.46.",  # Edinburg
+  "47.185.148.",  # Flower Mound
+  "12.251.72.",  # Fort Stockton
   "12.184.253.", # Fort Worth
+  "12.210.27.",  # Fort Worth
   "47.32.223.", # Fort Worth
   "12.203.146.", # Fort Worth
   "12.203.147.", # Fort Worth
   "12.184.254.", # Fort Worth
   "12.90.92.", # Fort Worth
+  "24.219.163.",  # Fort Worth
+  "50.11.19.",  # Fort Worth
+  "68.113.154.",  # Fort Worth
   "50.207.209.", # Friendswood
   "64.134.76.", # Grapevine
   "66.169.188.", # Haltom City
   "66.169.189.", # Haltom City
+  "12.8.38.",  # Houston
+  "12.68.245.",  # Houston
+  "12.198.216.",  # Houston
+  "16.35.199.",  # Houston
+  "16.160.30.",  # Houston
+  "16.186.156.",  # Houston
+  "24.206.72.",  # Houston
+  "24.206.173.",  # Houston
+  "34.9.77.",  # Houston
+  "34.131.207.",  # Houston
+  "38.100.150.",  # Houston
+  "45.33.171.",  # Houston
+  "65.124.92.",  # Houston
+  "66.67.94.",  # Houston
   "66.78.229.", # Houston
   "66.78.230.", # Houston
   "66.78.231.", # Houston
@@ -310,22 +358,45 @@ ips = [
   "50.162.44.", # Houston
   "45.17.135.", # Houston
   "68.91.35.", # Hurst
-  "64.129.174.", # Irving
   "50.84.165.", # Irving
+  "50.84.181.",  # Irving
+  "64.129.174.", # Irving
   "64.195.138.", # Irving
   "64.195.139.", # Irving
   "64.195.140.", # Irving
   "64.195.141.", # Irving
   "64.195.142.", # Irving
   "64.195.143.", # Irving
+  "66.25.22.",  # Irving
+  "24.32.224.",  # Kingwood
+  "68.88.193.",  # Lancaster
   "47.187.76.", # Lewisville
   "12.38.125.", # Lubbock
+  "38.114.200.",  # Lufkin
   "24.243.98.", # McAllen
   "67.10.39.", # McAllen
   "24.243.150.", # McAllen
   "24.243.151.", # McAllen
   "24.243.152.", # McAllen
+  "24.242.89.",  # Pflugerville
+  "67.10.20.",  # Pharr
+  "24.173.213.",  # Plano
   "47.185.248.", # Plano
+  "50.84.81.",  # Plano
+  "66.140.20."  # Plano
+  "68.22.119.",  # Plano
+  "68.72.56.",  # Plano
+  "68.90.204.",  # Plano
+  "68.93.19.",  # Plano
+  "23.113.179.",  # Richardson
+  "23.123.121.",  # Richardson
+  "23.126.17.",  # Richardson
+  "63.204.90.",  # Richardson
+  "63.204.168.", # Richardson
+  "65.69.103.",  # Richardson
+  "65.70.203.",  # Richardson
+  "66.138.5.",  # Richardson
+  "67.39.101.",  # Richardson
   "63.199.94.", # Richardson
   "63.203.212.", # Richardson
   "63.203.213.", # Richardson
@@ -372,7 +443,35 @@ ips = [
   "64.252.237.", # Richardson
   "64.252.238.", # Richardson
   "66.142.202.", # Richardson
+  "68.72.114.",  # Richardson
+  "63.174.141.",  # Rocksprings
   "66.235.81.", # Rosenberg
+  "8.9.196.",  # San Antonio
+  "12.211.20.",  # San Antonio
+  "15.105.182.",  # San Antonio
+  "15.120.150.",  # San Antonio
+  "15.126.8.",  # San Antonio
+  "15.129.118.",  # San Antonio
+  "15.132.18.",  # San Antonio
+  "15.142.164.",  # San Antonio
+  "15.145.145.",  # San Antonio
+  "15.155.5.",  # San Antonio
+  "15.152.9.",  # San Antonio
+  "15.153.121.",  # San Antonio
+  "15.153.133.",  # San Antonio
+  "15.162.231.",  # San Antonio
+  "15.170.117.",  # San Antonio
+  "15.173.25.",  # San Antonio
+  "15.180.1.",  # San Antonio
+  "15.180.224.",  # San Antonio
+  "15.181.177.",  # San Antonio
+  "15.193.183.",  # San Antonio
+  "15.204.186.",  # San Antonio
+  "15.213.214.",  # San Antonio
+  "15.214.133.",  # San Antonio
+  "15.214.237.",  # San Antonio
+  "15.216.199.",  # San Antonio
+  "15.224.247.",  # San Antonio
   "15.252.43.", # San Antonio
   "15.150.168.", # San Antonio
   "15.150.169.", # San Antonio
@@ -390,6 +489,7 @@ ips = [
   "15.160.200.", # San Antonio
   "15.160.201.", # San Antonio
   "15.160.202.", # San Antonio
+  "15.176.129.",  # San Antonio
   "15.193.69.", # San Antonio
   "15.193.70.", # San Antonio
   "15.211.169.", # San Antonio
@@ -430,9 +530,22 @@ ips = [
   "15.181.152.", # San Antonio
   "15.237.79.", # San Antonio
   "15.157.163.", # San Antonio
+  "24.173.86.",  # San Antonio
+  "50.84.228.",  # San Antonio
+  "50.95.50.",  # San Antonio
+  "67.155.93.",  # San Antonio
+  "68.98.252.",  # San Antonio
   "24.155.227.", # San Marcos
   "45.21.35." # Schertz
   "67.78.77.", # Seguin
+  "67.179.27.",  # Seguin
+  "12.205.32.",  # Sugar Land
+  "50.162.51.",  # Sugar Land
+  "64.61.53.",  # Sugar Land
+  "24.162.122.",  # Temple
+  "24.119.145.",  # Texarkana
+  "66.76.230.",  # Tyler
+  "24.32.200.",  # Vernon
 ]
 
 # random element from each list
