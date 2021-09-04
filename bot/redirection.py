@@ -8,6 +8,7 @@ if os.name == 'nt':
 else:
   hosts_filename = '/etc/hosts'
 
+logger.debug('hosts filename is ' + hosts_filename)
 
 def redirect():
   # Redirect prolifewhistleblower.com to 127.0.0.1
