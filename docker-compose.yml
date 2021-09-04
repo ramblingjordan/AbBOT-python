@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  abbot-web:
+    build: .
+    command: python -u main.py -v
+    ports:
+      - "8000:8000"

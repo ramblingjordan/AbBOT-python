@@ -8,6 +8,8 @@ if os.name == 'nt':
 else:
   hosts_filename = '/etc/hosts'
 
+logger.debug('hosts filename is ' + hosts_filename)
+
 # Opens OS specific hosts file and appends localhost as website URL
 # Might be easy to pivot to new sites later if we add all prolifewhistleblower.com entries to a static file
 def redirect():
