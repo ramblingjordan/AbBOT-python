@@ -5,7 +5,11 @@ import random
 import requests
 import json
 
+from .arguments import args
+from .logger import logger
+
 TEXT_GEN_API_VAR = 'DEEP_AI_KEY'
+DEFAULT_KEY = '9d414130-ca3d-4169-ab5e-0c0c2f17b65f'
 
 words = [
   'The', 'he', 'at', 'but', 'there', 'of', 'was', 'be', 'not', 'use', 'and', 'for', 'this', 'what', 'an', 'a', 'on', 'have', 'all', 'each',
@@ -253,13 +257,20 @@ def sign_up_page():
 
 
 def get_tip_body():
+  rv = ''
   # If we have an API key for GPT2, use it
-  if TEXT_GEN_API_VAR in os.environ:
+  if args.generate:
+    key = DEFAULT_KEY
+    if TEXT_GEN_API_VAR in os.environ:
+      key = os.environ[TEXT_GEN_API_VAR]
+      logger.info('Using key from environment: ' + key)
+    else:
+      logger.info('Using default key.')
     prompt = random.choice(gpt2_prompts)
     r = requests.post(
       "https://api.deepai.org/api/text-generator", data={
         'text': prompt,
-      }, headers={'api-key': os.environ[TEXT_GEN_API_VAR]}
+      }, headers={'api-key': key}
     )
     rv = str(r.json()['output'].encode('utf-8'))
     # cut out the prompt, which comes from a limited set and can be filtered on
@@ -267,9 +278,9 @@ def get_tip_body():
     # take string up through last complete sentence since we occasionally get trailing words
     if '.' in rv:
       rv = rv[0:rv.rindex('.')] + '.'
-    return rv
   else:
     # standard tip body generation
-    return random.choice(gop_members) + ' took their mistress ' + random.choice(firstNames) + ' ' + random.choice(
+    rv = random.choice(gop_members) + ' took their mistress ' + random.choice(firstNames) + ' ' + random.choice(
       lastNames
     ) + ' to get an abortion after their affair.'
+  logger.info('Generated text:\n' + rv)
