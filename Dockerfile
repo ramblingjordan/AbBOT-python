@@ -1,5 +1,7 @@
 FROM python:3.9-buster
 
+EXPOSE 8000
+
 RUN apt-get update && apt-get install -y \
     fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
     libnspr4 libnss3 lsb-release xdg-utils libxss1 libdbus-glib-1-2 \
