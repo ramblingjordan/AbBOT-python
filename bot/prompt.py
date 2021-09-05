@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import random
 from collections import Counter
-from .typos import add_typos
+from typos import add_typos
 
 def random_select_weighted_list(ls):
     return random.choices([k[1] for k in ls], weights = [k[0] for k in ls], k = 1)[0]
@@ -126,13 +126,13 @@ violated_words = [
   (8.0, 'violated'),
   (8.0, 'disregarded'),
   (8.0, 'disobeyed'),
-  (8.0, 'assisted someone in violating'),
-  (8.0, 'assisted someone in breaking'),
-  (8.0, 'assisted someone in disobeying'),
-  (2.0, 'helped someone violate'),
-  (2.0, 'helped someone disobey'),
-  (2.0, 'helped someone break'),
-  (2.0, 'helped violate'),
+  (4.0, 'assisted someone in violating'),
+  (4.0, 'assisted someone in breaking'),
+  (4.0, 'assisted someone in disobeying'),
+  (3.0, 'helped someone violate'),
+  (3.0, 'helped someone disobey'),
+  (3.0, 'helped someone break'),
+  (3.0, 'helped violate'),
   (0.4, 'helped someone get an abortion in violation of'),
   (0.4, 'helped someone have an abortion in violation of'),
   (0.4, 'helped someone get an abortion, violating'),
@@ -209,11 +209,12 @@ future_time_frames = [
 future_time_frames.extend(['next ' + k for k in days_of_the_week])
 future_time_frames.extend(['on ' + k for k in days_of_the_week])
 abortion_ban_words = [
-  'abortion ban', 'ban on abortion', 'new abortion law', 'law on abortion', 'recent abortion law', 'abortion restrictions',
-  'restrictions on abortion', 'law'
+  'abortion ban', 'ban on abortion', 'law on abortion', 'recent abortion law', 'abortion restrictions', 'restrictions on abortion',
 ]
-abortion_ban_words = [*["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words]]
-abortion_ban_words.extend(['Texas law', 'the new law'])
+abortion_ban_words = [ *["recently passed " + k for k in abortion_ban_words], *[k for k in abortion_ban_words] ]
+abortion_ban_words = [ *["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words] ]
+abortion_ban_words.extend(['Texas law', 'the new law', 'Texas law on abortion', 'the Texas law on abortion', 'the Texas abortion law',
+  'the new Texas abortion law', 'the recently passed Texas abortion law', 'new abortion law'])
 
 def gen_abortion_prompt_I(accused):
   abortion_prompt = 'I '
@@ -249,7 +250,10 @@ def gen_abortion_prompt_My(accused):
   abortion_prompt += '.'
   return abortion_prompt
 
+counter = 0
+
 def gen_abortion_prompt():
+  global counter
   accused_family_person = random_select_weighted_list(my_family_possessive_adj)
   accused_family_person += random_select_weighted_list(my_family_words)
   accused_nonfamily_person = random_select_weighted_list(my_nonfamily_possessive_adj)
@@ -262,11 +266,14 @@ def gen_abortion_prompt():
     (0.5, accused_teacher)
   ])
   abortion_prompts = [
-    (5.2, gen_abortion_prompt_I(accused)),
-    (2.6, gen_abortion_prompt_My(accused))
+    (1.0, gen_abortion_prompt_I(accused)),
+    (1.0, gen_abortion_prompt_My(accused))
   ]
-  return random_select_weighted_list(abortion_prompts)
-  #return add_typos(random_select_weighted_list(abortion_prompts))
+  #return random_select_weighted_list(abortion_prompts)
+  counter += 1
+  if random.random() < 0.001:
+    print('\r\x1b[K' + str(counter), end='')
+  return add_typos(random_select_weighted_list(abortion_prompts))
 
 bigram_counter = Counter()
 trigram_counter = Counter()
@@ -285,21 +292,21 @@ def check_ngram_frequency(prompt):
     quadgram_counter[cur_quadgram] += 1
   return prompt
 
+def write_ngram_to_file(counter, filename, total):
+    with open(filename, 'w') as writer:
+        for k, v in counter.most_common():
+            writer.write( "{} {}\n".format(k, float(v) / total) )
+            if float(v) / total < 0.001:
+                break
+
 if __name__ == "__main__":
   total_number = 2000000
-  sample_abortion_prompts = { check_ngram_frequency(gen_abortion_prompt()) for k in range(total_number) }
+  sample_abortion_prompts = [ check_ngram_frequency(gen_abortion_prompt()) for k in range(total_number) ]
   for k in sorted(list(sample_abortion_prompts)[:200], key = lambda o: random.random()):
     print(k)
-  print('Duplicates: ' + str(total_number - len(sample_abortion_prompts)))
-  print('Unique:     ' + str(len(sample_abortion_prompts)))
-  print('I [think]:  ' + str(len([k for k in sample_abortion_prompts if 'I' in k])))
-  print('Other:      ' + str(len(sample_abortion_prompts) - len([k for k in sample_abortion_prompts if 'I' in k])))
-  with open('bigram_freq.txt', 'w') as writer:
-    for k,v in  bigram_counter.most_common():
-        writer.write( "{} {}\n".format(k,v) )
-  with open('trigram_freq.txt', 'w') as writer:
-    for k,v in  trigram_counter.most_common():
-        writer.write( "{} {}\n".format(k,v) )
-  with open('quadgram_freq.txt', 'w') as writer:
-    for k,v in  quadgram_counter.most_common():
-        writer.write( "{} {}\n".format(k,v) )
+  unique = len(set(sample_abortion_prompts))
+  print('Duplicates: ' + str(total_number - unique))
+  print('Unique:     ' + str(unique))
+  write_ngram_to_file(bigram_counter, 'bigram_freq.txt', len(sample_abortion_prompts))
+  write_ngram_to_file(trigram_counter, 'trigram_freq.txt', len(sample_abortion_prompts))
+  write_ngram_to_file(quadgram_counter, 'quadgram_freq.txt', len(sample_abortion_prompts))
