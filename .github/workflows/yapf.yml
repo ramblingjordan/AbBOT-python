@@ -19,4 +19,4 @@ jobs:
         pip install yapf
     - name: Analysing the code with yapf
       run: |
-        yapf --diff ./bot/*.py
+        yapf -ir ./bot/*.py
