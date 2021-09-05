@@ -1,3 +1,32 @@
+- [AbBOT](#abbot)
+  * [Discord Server](#discord-server)
+  * [FAQ](#faq)
+  * [Overview](#overview)
+    + [Files](#files)
+  * [How to use the project](#how-to-use-the-project)
+    + [Install Git if you dont already have it installed](#install-git-if-you-dont-already-have-it-installed)
+    + [Clone the repo](#clone-the-repo)
+    + [Windows](#windows)
+      - [Running the program](#running-the-program)
+    + [Linux](#linux)
+      - [Running the program](#running-the-program-1)
+    + [macOS](#macos)
+      - [Running the program](#running-the-program-2)
+    + [Docker Compose](#docker-compose)
+      - [Setting up Your Machine](#setting-up-your-machine)
+    + [Building the Container](#building-the-container)
+    + [Running the Container](#running-the-container)
+    + [Docker Container (without docker-compose)](#docker-container--without-docker-compose-)
+      - [Setting up Your Machine](#setting-up-your-machine-1)
+      - [Building the container](#building-the-container)
+      - [Running the Program](#running-the-program)
+  * [How it looks in action](#how-it-looks-in-action)
+    + [Generating text dynamically](#generating-text-dynamically)
+  * [Usage](#usage)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 # AbBOT
 
 Credit to SeanDaBlack for the basis of the script.
@@ -28,10 +57,20 @@ If you have a question, before dropping into the Discord, check out our [FAQ pag
 
 ## How to use the project
 
+### Install Git if you dont already have it installed
+
+Instructions can be found here
+https://git-scm.com/downloads
+
+
 ### Clone the repo
+use powershell or cmd.exe on Windows
+terminal if on MacOS
+if on Linux, your terminal of choice
 
 ```bash
-git clone https://github.com/SeanDaBlack/AbBOT.git
+git clone https://github.com/ramblingjordan/AbBOT-python.git
+
 cd AbBot
 ```
 
