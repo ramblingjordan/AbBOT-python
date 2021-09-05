@@ -81,11 +81,14 @@ class ReCaptchaRequestHandler(BaseHTTPRequestHandler):
 
 
 def serve():
-  redirection.redirect()
+  redirection.redirect_to_localhost()
 
-  server_address = ('', 8000)
+  #Creating Extended Base HTTP server
+  server_address = ('', args.port)
   httpd = HTTPServer(server_address, ReCaptchaRequestHandler)
-  print('Starting the web server at http://prolifewhistleblower.com:8000/')
+  print('Starting the web server at http://prolifewhistleblower.com:' + str(args.port))
+
+  #Serving until Ctrl+C, then gracefully exiting
   try:
     httpd.serve_forever()
   except KeyboardInterrupt:
@@ -93,7 +96,7 @@ def serve():
     print('Ctrl+C received, shutting down the web server.')
   finally:
     httpd.socket.close()
-    redirection.end_redirect()
+    redirection.redirect_to_target()
 
 
 if __name__ == '__main__':

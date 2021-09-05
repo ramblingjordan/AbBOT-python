@@ -1,0 +1,13 @@
+{
+    "name": "abbot-python",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    "forwardPorts": [8000],
+    "extensions": [
+        "ms-python.python", 
+        "oderwat.indent-rainbow", 
+        "davidanson.vscode-markdownlint",
+        "2gua.rainbow-brackets"
+    ]
+}

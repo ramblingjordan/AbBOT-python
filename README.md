@@ -1,3 +1,32 @@
+- [AbBOT](#abbot)
+  * [Discord Server](#discord-server)
+  * [FAQ](#faq)
+  * [Overview](#overview)
+    + [Files](#files)
+  * [How to use the project](#how-to-use-the-project)
+    + [Install Git if you dont already have it installed](#install-git-if-you-dont-already-have-it-installed)
+    + [Clone the repo](#clone-the-repo)
+    + [Windows](#windows)
+      - [Running the program](#running-the-program)
+    + [Linux](#linux)
+      - [Running the program](#running-the-program-1)
+    + [macOS](#macos)
+      - [Running the program](#running-the-program-2)
+    + [Docker Compose](#docker-compose)
+      - [Setting up Your Machine](#setting-up-your-machine)
+    + [Building the Container](#building-the-container)
+    + [Running the Container](#running-the-container)
+    + [Docker Container (without docker-compose)](#docker-container--without-docker-compose-)
+      - [Setting up Your Machine](#setting-up-your-machine-1)
+      - [Building the container](#building-the-container)
+      - [Running the Program](#running-the-program)
+  * [How it looks in action](#how-it-looks-in-action)
+    + [Generating text dynamically](#generating-text-dynamically)
+  * [Usage](#usage)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 # AbBOT
 
 Credit to SeanDaBlack for the basis of the script.
@@ -6,7 +35,7 @@ Credit to SeanDaBlack for the basis of the script.
 
 https://discord.gg/PrAWWCCpDg
 
-### FAQ
+## FAQ
 
 If you have a question, before dropping into the Discord, check out our [FAQ page](https://github.com/SeanDaBlack/AbBOT/blob/main/FAQ.md) and see if your question has already been answered.
 
@@ -28,10 +57,20 @@ If you have a question, before dropping into the Discord, check out our [FAQ pag
 
 ## How to use the project
 
+### Install Git if you dont already have it installed
+
+Instructions can be found here
+https://git-scm.com/downloads
+
+
 ### Clone the repo
+use powershell or cmd.exe on Windows
+terminal if on MacOS
+if on Linux, your terminal of choice
 
 ```bash
-git clone https://github.com/SeanDaBlack/AbBOT.git
+git clone https://github.com/ramblingjordan/AbBOT-python.git
+
 cd AbBot
 ```
 
@@ -152,6 +191,43 @@ Form submitted successfully.
 
 To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
+### Docker Compose
+
+- First, [install Docker](https://docs.docker.com/get-docker/).
+
+#### Setting up Your Machine
+
+You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
+
+### Building the Container
+
+- Clone this repository
+- Go to the root directory of the repository
+- Run `docker-compose build` to build the container
+
+### Running the Container
+
+- Run `docker-compose up`
+
+### Docker Container (without docker-compose)
+
+- First, [install Docker](https://docs.docker.com/get-docker/).
+
+#### Setting up Your Machine
+
+You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
+
+#### Building the container
+
+- Clone this repository
+- Go to the root directory of the repository
+- Run `docker build -t abbot .` to build the container
+
+#### Running the Program
+
+Run `docker run -p 8000:8000 --name abbot abbot`
+
+This will start the web server.
 ## How it looks in action
 
 ![reCaptcha in Chrome on the left side. Terminal running main.py and denoting a successful POST request on the right side.](https://cdn.discordapp.com/attachments/883159187666919549/883350251833028668/unknown.png)
