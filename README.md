@@ -252,3 +252,8 @@ optional arguments:
   -g, --generate
                         Generate GPT2 text from DeepAI API with key set by environment variable or default.
 ```
+
+## Attribution
+
+### TX Zip Codes
+Original csv file with zip code data obtained from [simplemaps](https://simplemaps.com/data/us-zips), under the [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/). Data for all TX zip codes was pulled from the csv file and formatted to JSON in the txzips.json file.

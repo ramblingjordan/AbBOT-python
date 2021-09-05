@@ -11,23 +11,8 @@ from .logger import logger
 TEXT_GEN_API_VAR = 'DEEP_AI_KEY'
 DEFAULT_KEY = '9d414130-ca3d-4169-ab5e-0c0c2f17b65f'
 
-words = [
-  'The', 'he', 'at', 'but', 'there', 'of', 'was', 'be', 'not', 'use', 'and', 'for', 'this', 'what', 'an', 'a', 'on', 'have', 'all', 'each',
-  'to', 'are', 'from', 'were', 'which', 'in', 'as', 'or', 'we', 'she', 'is', 'with', 'ine', 'when', 'do', 'you', 'his', 'had', 'your',
-  'how', 'that', 'they', 'by', 'can', 'their', 'it', 'I', 'word', 'said', 'if'
-]
-
 with open(os.path.join(os.path.dirname(__file__), './data/cities.json')) as cities_file:
-  cities = json.load(cities_file)
-
-gop_members = [
-  'Gary VanDeaver', 'Bryan Slaton', 'Cecil Bell Jr.', 'Keith Bell', 'Cole Hefner', 'Matt Schaefer', 'Jay Dean', 'Cody Harris',
-  'Chris Paddie', 'Travis Clardy', 'Kyle Kacal', 'Ben Leman', 'John N. Raney', 'Steve Toth', 'Will Metcalf', 'John Cyrier', 'Ernest Bailes',
-  'James White', 'Terry Wilson', 'Dade Phelan', 'Mayes Middleton', 'Greg Bonnen', 'Cody Vasut', 'Brooks Landgraf', 'Tom Craddick',
-  'Dustin Burrows', 'John Frullo', 'Phil Stephenson', 'John T. Smithee', 'Four Price', 'Ken King', 'Candy Noble', 'Stephanie Klick',
-  'Jeff Cason', 'Matt Krause', 'Tony Tinderholt', 'David Cook', 'Craig Goldman', 'Giovanni Capriglione', 'Charlie Geren', 'Sam Harless',
-  'Dan Huberty', 'Briscoe Cain', 'Dennis Paul', 'Tom Oliverson', 'Mike Schofield'
-]
+    cities = json.load(cities_file)
 
 with open(os.path.join(os.getcwd(), "bot", "data", "firstnameGirl.json")) as fng:
   firstNames = json.loads(fng.read())
@@ -41,14 +26,31 @@ with open(os.path.join(os.getcwd(), "bot", "data", "lastname.json")) as ln:
   lastNames = json.loads(ln.read())
   lastNames = lastNames["names"]
 
-with open(os.path.join(os.getcwd(), "bot", "data", "zips.json")) as z:
-  zip_codes = json.loads(z.read())
+with open(os.path.join(os.getcwd(), "bot", "data", "txzips.json")) as zips_file:
+  zips = json.loads(zips_file.read())
+
+words = [
+    'The', 'he', 'at', 'but', 'there', 'of', 'was', 'be', 'not', 'use', 'and', 'for', 'this', 'what', 'an', 'a', 'on', 'have', 'all', 'each',
+    'to', 'are', 'from', 'were', 'which', 'in', 'as', 'or', 'we', 'she', 'is', 'with', 'ine', 'when', 'do', 'you', 'his', 'had', 'your',
+    'how', 'that', 'they', 'by', 'can', 'their', 'it', 'I', 'word', 'said', 'if'
+]
+
+gop_members = [
+    'Gary VanDeaver', 'Bryan Slaton', 'Cecil Bell Jr.', 'Keith Bell', 'Cole Hefner', 'Matt Schaefer', 'Jay Dean', 'Cody Harris',
+    'Chris Paddie', 'Travis Clardy', 'Kyle Kacal', 'Ben Leman', 'John N. Raney', 'Steve Toth', 'Will Metcalf', 'John Cyrier', 'Ernest Bailes',
+    'James White', 'Terry Wilson', 'Dade Phelan', 'Mayes Middleton', 'Greg Bonnen', 'Cody Vasut', 'Brooks Landgraf', 'Tom Craddick',
+    'Dustin Burrows', 'John Frullo', 'Phil Stephenson', 'John T. Smithee', 'Four Price', 'Ken King', 'Candy Noble', 'Stephanie Klick',
+    'Jeff Cason', 'Matt Krause', 'Tony Tinderholt', 'David Cook', 'Craig Goldman', 'Giovanni Capriglione', 'Charlie Geren', 'Sam Harless',
+    'Dan Huberty', 'Briscoe Cain', 'Dennis Paul', 'Tom Oliverson', 'Mike Schofield'
+]
 
 # Seeds for text body generation
 gpt2_prompts = [
-  'My neighbor got an illegal abortion.', 'I suspect my father has violated the abortion ban.',
-  random.choice(firstNames) + ' ' + random.choice(lastNames) + ' is helping people get abortions.',
-  random.choice(gop_members) + ' has been sneaking around the abortion clinic in ' + random.choice(list(cities)) + '.'
+    'My neighbor got an illegal abortion.', 'I suspect my father has violated the abortion ban.',
+    random.choice(firstNames) + ' ' + random.choice(lastNames) +
+    ' is helping people get abortions.',
+    random.choice(gop_members) + ' has been sneaking around the abortion clinic in ' +
+    random.choice(list(cities)) + '.'
 ]
 
 info_location = [
@@ -404,24 +406,35 @@ ips = [
 
 
 def anonymous_form():
-  while True:
-    city, county = random.choice(list(cities.items()))
-    form_data = {
-      'textarea-1': get_tip_body(),
-      'text-1': random.choice(info_location),
-      'text-6': 'Dr. ' + random.choice(maleFirstNames) + ' ' + random.choice(lastNames),
-      'text-2': city,
-      'text-3': 'Texas',
-      'text-4': str(random.randint(75001, 79942)),
-      'text-5': county,
-      'hidden-1': random.choice(ips) + str(random.randint(0, 255)),
-      'checkbox-1[]': 'no',
-    }
-    yield form_data
+    while True:
+        zipKey = random.choice(list(zips["texaszips"]))
+        zipObj = zips["texaszips"][zipKey]
+
+        userLocation = {
+            'userCity': zipObj["city"],
+            'userCounty': zipObj["countyname"],
+            'userState': zipObj["statename"] if random.choice([True, False]) else zipObj["stateid"],
+            'userZip': zipKey,
+        }
+
+        form_data = {
+            'textarea-1': get_tip_body(),
+            'text-1': random.choice(info_location),
+            'text-6': 'Dr. ' + random.choice(maleFirstNames) + ' ' + random.choice(lastNames),
+            'text-2': userLocation['userCity'],
+            'text-3': userLocation['userState'],
+            'text-4': userLocation['userZip'],
+            'text-5': userLocation['userCounty'],
+            'hidden-1': random.choice(ips) + str(random.randint(0, 255)),
+            'checkbox-1[]': 'no',
+        }
+        yield form_data
+
 
 
 def sign_up_page():
-  raise NotImplementedError()
+    raise NotImplementedError()
+
 
 
 def get_tip_body():
