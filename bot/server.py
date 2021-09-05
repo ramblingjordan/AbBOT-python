@@ -84,9 +84,9 @@ def serve():
   redirection.redirect_to_localhost()
 
   #Creating Extended Base HTTP server
-  server_address = ('', 8000)
+  server_address = ('', args.port)
   httpd = HTTPServer(server_address, ReCaptchaRequestHandler)
-  print('Starting the web server at http://prolifewhistleblower.com:8000/')
+  print('Starting the web server at http://prolifewhistleblower.com:' + str(args.port))
 
   #Serving until Ctrl+C, then gracefully exiting
   try:
