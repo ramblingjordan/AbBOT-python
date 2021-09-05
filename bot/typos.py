@@ -30,8 +30,3 @@ def add_typos(in_str):
         else:
             out_str += k
     return out_str
-
-if __name__ == "__main__":
-    output = [ gen_typo_odds() for k in range(1000000) ]
-    sns.kdeplot(output)
-    plt.show()
