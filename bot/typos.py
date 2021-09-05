@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import random
-from rand_select import random_select_weighted_list
-import seaborn as sns
-import matplotlib.pyplot as plt
+
+def random_select_weighted_list(ls):
+    return random.choices([k[1] for k in ls], weights = [k[0] for k in ls], k = 1)[0]
 
 def gen_typo_odds():
     return 1.0 - (random.betavariate(16, 2) * 0.3 + 0.6995)
