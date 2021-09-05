@@ -10,6 +10,9 @@ def gen_typo_odds():
 
 def add_typos(in_str):
     typo_odds = gen_typo_odds()
+    space_typo_odds = gen_typo_odds() / 1.5
+    lowercase_odds = 0.5 * (gen_typo_odds() ** 0.5)
+    punct_typo_odds = gen_typo_odds() + typo_odds ** 0.5
     # Outside of English transliterations, the letter 'q' is always followed by
     # a 'u'. By combining them into one letter, typos are easier to introduce.
     in_str = re.sub('qu', 'q', in_str)
@@ -148,22 +151,26 @@ def add_typos(in_str):
             (0.05 * typo_odds, 'x')
         ],
         ',': [
-            (1 - typo_odds ** 0.5, ','),
-            (0.9 * typo_odds ** 0.5, ''),
-            (0.1 * typo_odds ** 0.5, '.'),
+            (1 - punct_typo_odds, ','),
+            (0.9 * punct_typo_odds, ''),
+            (0.1 * punct_typo_odds, '.'),
         ],
         '.': [
-            (1 - typo_odds ** 0.75, '.'),
-            (0.3 * typo_odds ** 0.75, ''),
-            (0.3 * typo_odds ** 0.75, ','),
+            (1 - punct_typo_odds, '.'),
+            (0.3 * punct_typo_odds, ''),
+            (0.3 * punct_typo_odds, ','),
         ],
         "'": [
-            (1 - typo_odds ** 0.5, "'s"),
-            (0.7 * typo_odds ** 0.5, "s"),
-            (0.3 * typo_odds ** 0.5, "s'")
-        ]
+            (1 - punct_typo_odds, "'s"),
+            (0.7 * punct_typo_odds, "s"),
+            (0.3 * punct_typo_odds, "s'")
+        ],
     }
-    out_str = ''
+    space_subs = [
+        (1 - space_typo_odds, ' '),
+        (0.9 * space_typo_odds, ''),
+        (0.1 * space_typo_odds, '  ')
+    ]
     words = in_str.split()
     out_words = []
     misspelled_words = {}
@@ -187,4 +194,13 @@ def add_typos(in_str):
         if out_word != word:
             misspelled_words[word] = out_word
         out_words.append(out_word)
-    return ' '.join(out_words)
+    intermediate_str = ' '.join(out_words)
+    if lowercase_odds < 0.1:
+        intermediate_str = intermediate_str.lower()
+    out_str = ''
+    for k in intermediate_str:
+        if k == ' ':
+            out_str += random_select_weighted_list(space_subs)
+        else:
+            out_str += k
+    return out_str
