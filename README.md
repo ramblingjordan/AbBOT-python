@@ -24,7 +24,7 @@
     + [Generating text dynamically](#generating-text-dynamically)
   * [Usage](#usage)
   * [Using a Virtual Environment](#using-a-virtual-environment)
-    + [Setup for Linux and MacOS](#setup-for-linux-and-macos)
+    + [Setup for Linux and macOS](#setup-for-linux-and-macos)
     + [Setup for Windows](#setup-for-windows)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -68,7 +68,7 @@ https://git-scm.com/downloads
 
 ### Clone the repo
 use powershell or cmd.exe on Windows
-terminal if on MacOS
+terminal if on macOS
 if on Linux, your terminal of choice
 
 ```bash
@@ -274,7 +274,7 @@ A virtual environment creates a local installation of Python, where the installe
 
 ### Setup
 
-#### Setup for Linux and MacOS
+#### Setup for Linux and macOS
 
 To create a virtual environment, make sure you are in the `AbBOT-python` directory, then execute:
 
