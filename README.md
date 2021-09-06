@@ -1,40 +1,34 @@
+![GitHub](https://img.shields.io/github/license/ramblingjordan/AbBOT-python)
+![GitHub issues](https://img.shields.io/github/issues-raw/ramblingjordan/AbBOT-python)
+# Table of contents
 - [AbBOT](#abbot)
-  * [Discord Server](#discord-server)
-  * [FAQ](#faq)
-  * [Overview](#overview)
-    + [Files](#files)
-  * [How to use the project](#how-to-use-the-project)
-    + [Install Git if you dont already have it installed](#install-git-if-you-dont-already-have-it-installed)
-    + [Clone the repo](#clone-the-repo)
-    + [Windows](#windows)
-      - [Running the program](#running-the-program)
-    + [Linux](#linux)
-      - [Running the program](#running-the-program-1)
-    + [macOS](#macos)
-      - [Running the program](#running-the-program-2)
-    + [Docker Compose](#docker-compose)
-      - [Setting up Your Machine](#setting-up-your-machine)
-    + [Building the Container](#building-the-container)
-    + [Running the Container](#running-the-container)
-    + [Docker Container (without docker-compose)](#docker-container--without-docker-compose-)
-      - [Setting up Your Machine](#setting-up-your-machine-1)
-      - [Building the container](#building-the-container)
-      - [Running the Program](#running-the-program)
-  * [How it looks in action](#how-it-looks-in-action)
-    + [Generating text dynamically](#generating-text-dynamically)
-  * [Usage](#usage)
-  * [Using a Virtual Environment](#using-a-virtual-environment)
-    + [Setup for Linux and macOS](#setup-for-linux-and-macos)
-    + [Setup for Windows](#setup-for-windows)
+  - [Discord Server](#discord-server)
+  - [FAQ](#faq)
+  - [Overview](#overview)
+    - [Files](#files)
+  - [How to use the project](#how-to-use-the-project)
+    - [Install Git](#install-git)
+    - [Clone the repo](#clone-the-repo)
+    - [Windows](#windows)
+    - [Linux](#linux)
+    - [macOS](#macos)
+    - [Docker Compose](#docker-compose)
+    - [Building and Running the Container](#building-and-running-the-container)
+    - [Docker Container without docker-compose](#docker-container-without-docker-compose)
+  - [How it looks in action](#how-it-looks-in-action)
+    - [Generating text dynamically](#generating-text-dynamically)
+  - [Usage](#usage)
+  - [Using a Virtual Environment](#using-a-virtual-environment)
+    - [Setup](#setup)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+<!-- Created using https://luciopaiva.com/markdown-toc/ at level 3 -->
 
 # AbBOT
 
 Credit to SeanDaBlack for the basis of the script.
-
 ## Discord Server
+![Discord](https://img.shields.io/discord/883159187666919546?label=Discord)
 
 https://discord.gg/PrAWWCCpDg
 
@@ -60,7 +54,7 @@ If you have a question, before dropping into the Discord, check out our [FAQ pag
 
 ## How to use the project
 
-### Install Git if you dont already have it installed
+### Install Git
 
 Instructions can be found here
 https://git-scm.com/downloads
@@ -214,17 +208,14 @@ To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
 You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
 
-### Building the Container
+### Building and Running the Container
 
 - Clone this repository
 - Go to the root directory of the repository
 - Run `docker-compose build` to build the container
-
-### Running the Container
-
 - Run `docker-compose up`
 
-### Docker Container (without docker-compose)
+### Docker Container without docker-compose
 
 - First, [install Docker](https://docs.docker.com/get-docker/).
 
@@ -237,10 +228,7 @@ You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `12
 - Clone this repository
 - Go to the root directory of the repository
 - Run `docker build -t abbot .` to build the container
-
-#### Running the Program
-
-Run `docker run -p 8000:8000 --name abbot abbot`
+- Run `docker run -p 8000:8000 --name abbot abbot` to run it
 
 This will start the web server.
 ## How it looks in action
