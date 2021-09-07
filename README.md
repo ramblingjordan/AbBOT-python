@@ -1,37 +1,34 @@
+![GitHub](https://img.shields.io/github/license/ramblingjordan/AbBOT-python)
+![GitHub issues](https://img.shields.io/github/issues-raw/ramblingjordan/AbBOT-python)
+# Table of contents
 - [AbBOT](#abbot)
-  * [Discord Server](#discord-server)
-  * [FAQ](#faq)
-  * [Overview](#overview)
-    + [Files](#files)
-  * [How to use the project](#how-to-use-the-project)
-    + [Install Git if you dont already have it installed](#install-git-if-you-dont-already-have-it-installed)
-    + [Clone the repo](#clone-the-repo)
-    + [Windows](#windows)
-      - [Running the program](#running-the-program)
-    + [Linux](#linux)
-      - [Running the program](#running-the-program-1)
-    + [macOS](#macos)
-      - [Running the program](#running-the-program-2)
-    + [Docker Compose](#docker-compose)
-      - [Setting up Your Machine](#setting-up-your-machine)
-    + [Building the Container](#building-the-container)
-    + [Running the Container](#running-the-container)
-    + [Docker Container (without docker-compose)](#docker-container--without-docker-compose-)
-      - [Setting up Your Machine](#setting-up-your-machine-1)
-      - [Building the container](#building-the-container)
-      - [Running the Program](#running-the-program)
-  * [How it looks in action](#how-it-looks-in-action)
-    + [Generating text dynamically](#generating-text-dynamically)
-  * [Usage](#usage)
+  - [Discord Server](#discord-server)
+  - [FAQ](#faq)
+  - [Overview](#overview)
+    - [Files](#files)
+  - [How to use the project](#how-to-use-the-project)
+    - [Install Git](#install-git)
+    - [Clone the repo](#clone-the-repo)
+    - [Windows](#windows)
+    - [Linux](#linux)
+    - [macOS](#macos)
+    - [Docker Compose](#docker-compose)
+    - [Building and Running the Container](#building-and-running-the-container)
+    - [Docker Container without docker-compose](#docker-container-without-docker-compose)
+  - [How it looks in action](#how-it-looks-in-action)
+    - [Generating text dynamically](#generating-text-dynamically)
+  - [Usage](#usage)
+  - [Using a Virtual Environment](#using-a-virtual-environment)
+    - [Setup](#setup)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+<!-- Created using https://luciopaiva.com/markdown-toc/ at level 3 -->
 
 # AbBOT
 
 Credit to SeanDaBlack for the basis of the script.
-
 ## Discord Server
+![Discord](https://img.shields.io/discord/883159187666919546?label=Discord)
 
 https://discord.gg/PrAWWCCpDg
 
@@ -57,7 +54,7 @@ If you have a question, before dropping into the Discord, check out our [FAQ pag
 
 ## How to use the project
 
-### Install Git if you dont already have it installed
+### Install Git
 
 Instructions can be found here
 https://git-scm.com/downloads
@@ -65,13 +62,13 @@ https://git-scm.com/downloads
 
 ### Clone the repo
 use powershell or cmd.exe on Windows
-terminal if on MacOS
+terminal if on macOS
 if on Linux, your terminal of choice
 
 ```bash
 git clone https://github.com/ramblingjordan/AbBOT-python.git
 
-cd AbBot
+cd AbBOT-python
 ```
 
 ### Windows
@@ -80,7 +77,7 @@ If you don't already have `python3.exe` and `pip3.exe` installed on Windows, you
 
 https://www.microsoft.com/en-us/p/python-39/9p7qfqmjrfp7
 
-Now we can install the required Python 3 packages for this project.
+Now we can install the required Python 3 packages for this project. Before you install the packages, consider [setting up a virtual environment for development](#using-a-virtual-environment).
 
 ```powershell
 pip3.exe install -r .\requirements.txt
@@ -113,10 +110,16 @@ If you don't have `python3` or `pip3` installed, you can install the `python3` p
 sudo apt install python3
 ```
 
-Now we can install the required Python 3 packages for this project.
+If you already have `python3` installed, make sure your have the latest version of `pip3` installed. You can update your `pip3` installation as follows.
 
 ```bash
-pip3 install -r ./requirements.txt
+python3 -m pip install --user --upgrade pip
+```
+
+Now we can install the required Python 3 packages for this project. Before you install the packages, consider [setting up a virtual environment for development](#using-a-virtual-environment).
+
+```bash
+python3 -m pip install -r ./requirements.txt
 ```
 
 #### Running the program
@@ -129,7 +132,7 @@ sudo python3 ./main.py
 sudo ./main.py
 ```
 
-If you installed `python3`/`pip3` t to your account and not to the system, you will want to keep your `PATH` when using `sudo`.
+If you installed `python3`/`pip3` to your account and not to the system, you will want to keep your `PATH` when using `sudo`.
 
 ```bash
 sudo env "PATH=$PATH" python3 ./main.py
@@ -156,7 +159,13 @@ If you don't have `python3` or `pip3` installed you can either download the inst
 brew install python3
 ```
 
-Now we can install the required Python 3 packages for this project.
+If you already have `python3` installed, make sure your have the latest version of `pip3` installed. You can update your `pip3` installation as follows.
+
+```bash
+python3 -m pip install --user --upgrade pip
+```
+
+Now we can install the required Python 3 packages for this project. Before you install the packages, consider [setting up a virtual environment for development](#using-a-virtual-environment).
 
 ```bash
 pip3 install -r ./requirements.txt
@@ -199,17 +208,14 @@ To exit the program, please hit <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
 You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `127.0.0.1`.
 
-### Building the Container
+### Building and Running the Container
 
 - Clone this repository
 - Go to the root directory of the repository
 - Run `docker-compose build` to build the container
-
-### Running the Container
-
 - Run `docker-compose up`
 
-### Docker Container (without docker-compose)
+### Docker Container without docker-compose
 
 - First, [install Docker](https://docs.docker.com/get-docker/).
 
@@ -222,10 +228,7 @@ You'll need to edit your `hosts` file to point `prolifewhistleblower.com` to `12
 - Clone this repository
 - Go to the root directory of the repository
 - Run `docker build -t abbot .` to build the container
-
-#### Running the Program
-
-Run `docker run -p 8000:8000 --name abbot abbot`
+- Run `docker run -p 8000:8000 --name abbot abbot` to run it
 
 This will start the web server.
 ## How it looks in action
@@ -252,3 +255,41 @@ optional arguments:
   -g, --generate
                         Generate GPT2 text from DeepAI API with key set by environment variable or default.
 ```
+
+## Using a Virtual Environment
+
+A virtual environment creates a local installation of Python, where the installed packages will be isolated from the packages installed by the main Python installation, which allows you to better keep track of what packages are used. For example, if your program requires a new module during development, you could update the requirements file via `pip freeze > requirements.txt` on Linux and macOS. This is recommended, especially if you are planning to help develop the bot. The package `venv` is shipped with Python 3.3 or later.
+
+### Setup
+
+#### Setup for Linux and macOS
+
+To create a virtual environment, make sure you are in the `AbBOT-python` directory, then execute:
+
+```bash
+python3 -m venv .env
+```
+
+This creates a directory `AbBOT-python/.env`, which contains the virtual Python installation, and will not to uploaded to GitHub during commits. Then source the activate file to use the virtual environment.
+
+```bash
+source ./.env/bin/activate
+```
+
+To check that you are in virtual environment, the command `which python3` should return a path that ends in `.../AbBOT-python/.env/bin/python3`. Now you could install the required packages *inside* the virtual environment. To leave the virtual environment and return to your main Python installation, simply use `deactivate`.
+
+#### Setup for Windows
+
+To create a virtual environment, make sure you are in the `AbBOT-python` directory, then execute:
+
+```
+python3.exe -m venv .env
+```
+
+This creates a directory `AbBOT-python\.env`, which contains the virtual Python installation, and will not to uploaded to GitHub during commits. Then source the activate file to use the virtual environment (again, making sure that you are in the `AbBOT-python` directory).
+
+```
+.\env\Scripts\activate
+```
+
+To check that you are in virtual environment, the command `which python3` should return a path that ends in `...\AbBOT-python\.env\Scripts\python.exe`. Now you could install the required packages *inside* the virtual environment. To leave the virtual environment and return to your main Python installation, simply use `deactivate`.
