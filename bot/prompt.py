@@ -17,6 +17,7 @@ suspect_words = [
   (1.0, 'am convinced'),
   (1.0, 'am certain'),
   (1.0, 'can prove'),
+  (1.0, 'have proof'),
 ]
 my_family_words = [
   (0.5, 'father'),
@@ -66,13 +67,29 @@ subjects = [
   'P.E.',
   'gym',
   'English',
+  'language arts',
+  'composition',
+  'geometry',
+  'statistics',
+  'physics',
+  'earth science',
+  'economics',
+  'geography',
+  'government',
+  'French',
+  'business',
+  
 ]
 my_teacher_words = [
   (1.0, 'teacher'),
   *[(0.2, k + ' teacher') for k in subjects],
   (0.5, 'tutor'),
   *[(0.1, k + ' tutor') for k in subjects],
-  (1.0, 'babysitter')
+  (1.0, 'babysitter'),
+  (1.0, 'instructor'),
+  *[(0.2, k + ' instructor') for k in subjects],
+  (1.0, 'professor'),
+  *[(0.2, k + ' professor') for k in subjects],
 ]
 my_nonfamily_words = [
   (2.0, 'neighbor'),
@@ -108,9 +125,13 @@ my_nonfamily_possessive_adj = [(k[0], k[1] + "'s ") for k in my_family_words]
 my_nonfamily_possessive_adj.append((20.0, ''))
 my_teacher_possessive_adj = [
   (0.2, 'younger brother'),
+  (0.2, 'older brother'),
   (0.2, 'younger sister'),
+  (0.2, 'older sister'),
   (0.8, 'brother'),
+  (0.4, 'step-brother'),
   (0.8, 'sister'),
+  (0.4, 'step-sister'),
   (1.0, 'cousin'),
   (2.0, 'daughter'),
   (2.0, 'son'),
@@ -133,6 +154,8 @@ violated_words = [
   (2.0, 'helped someone disobey'),
   (2.0, 'helped someone break'),
   (2.0, 'helped violate'),
+  (2.0, 'helped break'),
+  (2.0, 'helped disobey'),
   (0.4, 'helped someone get an abortion in violation of'),
   (0.4, 'helped someone have an abortion in violation of'),
   (0.4, 'helped someone get an abortion, violating'),
@@ -177,6 +200,46 @@ violated_words = [
   (0.1, 'helped someone kill a baby, violating'),
   (0.1, 'helped someone murder a child, violating'),
   (0.1, 'helped someone murder a baby, violating'),
+  (0.1, 'aided in the killing of a child, violating'),
+  (0.1, 'aided in the killing of a baby, violating'),
+  (0.1, 'aided in the killing of her child, violating'),
+  (0.1, 'aided in the killing of her baby, violating'),
+  (0.1, 'aided in the killing of a child, disobeying'),
+  (0.1, 'aided in the killing of a baby, disobeying'),
+  (0.1, 'aided her in killing her baby, violating'),
+  (0.1, 'aided her in killing her child, violating'),
+  (0.1, 'aided her in killing her baby, disobeying'),
+  (0.1, 'aided her in killing her child, disobeying'),
+  (0.1, 'aided in the killing of a child, breaking'),
+  (0.1, 'aided in the killing of a baby, breaking'),
+  (0.1, 'aided in the killing of her child, breaking'),
+  (0.1, 'aided in the killing of her baby, breaking'),
+  (0.1, 'aided in the killing of a child, breaking'),
+  (0.1, 'aided in the killing of a baby, breaking'),
+  (0.1, 'aided her in killing her baby, breaking'),
+  (0.1, 'aided her in killing her child, breaking'),
+  (0.1, 'aided her in killing her baby, breaking'),
+  (0.1, 'aided her in killing her child, breaking'),
+  (0.1, 'aided in the killing of a child, in violation of'),
+  (0.1, 'aided in the killing of a baby, in violation of'),
+  (0.1, 'aided in the killing of her child, in violation of'),
+  (0.1, 'aided in the killing of her baby, in violation of'),
+  (0.1, 'aided in the killing of a child, in violation of'),
+  (0.1, 'aided in the killing of a baby, in violation of'),
+  (0.1, 'aided her in killing her baby, in violation of'),
+  (0.1, 'aided her in killing her child, in violation of'),
+  (0.1, 'aided her in killing her baby, in violation of'),
+  (0.1, 'aided her in killing her child, in violation of'),
+  (0.1, 'aided in the killing of a child and violated'),
+  (0.1, 'aided in the killing of a baby and violated'),
+  (0.1, 'aided in the killing of her child and violated'),
+  (0.1, 'aided in the killing of her baby and violated'),
+  (0.1, 'aided in the killing of a child and violated'),
+  (0.1, 'aided in the killing of a baby and violated'),
+  (0.1, 'aided her in killing her baby and violated'),
+  (0.1, 'aided her in killing her child and violated'),
+  (0.1, 'aided her in killing her baby and violated'),
+  (0.1, 'aided her in killing her child and violated'),
 ]
 days_of_the_week = [
   'Sunday',
@@ -188,7 +251,7 @@ days_of_the_week = [
   'Saturday',
 ]
 got_words = [
-  'got', 'had', 'helped someone get'
+  'got', 'had', 'helped someone get', 'assisted someone in getting'
 ]
 past_time_frames = [
   'last week', 'last month', 'this week', 'this month', 'yesterday', 'a week ago', 'two weeks ago', 'two days ago', 'on the weekend',
@@ -197,7 +260,8 @@ past_time_frames = [
 past_time_frames.extend([ 'last ' + k for k in days_of_the_week ])
 past_time_frames.extend([ 'on ' + k for k in days_of_the_week ])
 will_get_words = [
-  'is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get', 'is helping someone get'
+  'is getting', 'will get', 'plans on having', 'is trying to get', 'is trying to have', 'will try to get', 'is helping someone get', 'is planning to get', 'is planning on getting',
+  'plans to get'
 ]
 past_time_frames.extend(['last ' + k for k in days_of_the_week])
 past_time_frames.extend(['on ' + k for k in days_of_the_week])
