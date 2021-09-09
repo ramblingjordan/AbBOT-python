@@ -379,9 +379,9 @@ def gen_abortion_prompt_My(accused):
     else:
         abortion_prompt += random.choice(will_get_words)
     abortion_prompt += ' an'
-    abortion_prompt += random.choices(['', ' illegal', ' unlawful', ' illicit', ' aspiration', 'unauthorized',
-                                       'unsanctioned', 'outlawed', 'unjust', 'unrighteous'], weights=[0.125, 0.125,
-                                       0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125], k=1)[0]
+    abortion_prompt += random.choices(['', ' illegal', ' unlawful', ' illicit', ' aspiration', ' unauthorized',
+    ' unsanctioned', ' outlawed', ' unjust', ' unrighteous'],
+    weights=[0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125], k=1)[0]
     abortion_prompt += ' abortion'
     if random.random() > 0.5:
         abortion_prompt += ' '
