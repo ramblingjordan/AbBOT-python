@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 import random
 from collections import Counter
-from .typos import add_typos
 
 def random_select_weighted_list(ls):
     return random.choices([k[1] for k in ls], weights = [k[0] for k in ls], k = 1)[0]
 
 suspect_words = [
+    (1.0, 'suspect'),
     (1.0, 'know'),
     (1.0, 'discovered'),
     (1.0, 'uncovered'),
@@ -27,6 +27,7 @@ suspect_words = [
     (0.2, 'have strong evidence'),
     (1.0, 'am convinced'),
     (1.0, 'am certain'),
+    (1.0, 'have proof'),
     (1.0, 'am positive'),
     (1.0, 'am suspicious'),
     (1.0, 'am sure'),
@@ -71,7 +72,6 @@ suspect_words = [
     (0.8, 'hold the evidence'),
     (0.8, 'have the evidence'),
     (1.0, 'have the proof'),
-    (1.0, 'have proof'),
     (0.5, 'will prove'),
     (0.5, 'will legally prove'),
     (0.5, 'will provide proof'),
@@ -140,7 +140,6 @@ subjects = [
     'calculus',
     'art',
     'music',
-    'P.E.',
     'gym',
     'English',
     'language arts',
@@ -157,7 +156,6 @@ subjects = [
     'political science',
     'engineering',
     'psychology'
-
 ]
 my_teacher_words = [
     (1.0, 'teacher'),
@@ -165,6 +163,10 @@ my_teacher_words = [
     (0.5, 'tutor'),
     *[(0.1, k + ' tutor') for k in subjects],
     (1.0, 'babysitter'),
+    (1.0, 'instructor'),
+    *[(0.2, k + ' instructor') for k in subjects],
+    (0.5, 'professor'),
+    *[(0.1, k + ' professor') for k in subjects],
 ]
 my_nonfamily_words = [
     (2.0, 'neighbor'),
@@ -198,7 +200,6 @@ my_nonfamily_words = [
     (0.2, 'colleague'),
     (0.2, 'dry-cleaner'),
     (0.2, 'bartender')
-
 ]
 my_family_possessive_adj = [(k[0], k[1] + "'s ") for k in my_nonfamily_words]
 my_family_possessive_adj.append((20.0, ''))
@@ -206,9 +207,9 @@ my_nonfamily_possessive_adj = [(k[0], k[1] + "'s ") for k in my_family_words]
 my_nonfamily_possessive_adj.append((20.0, ''))
 my_teacher_possessive_adj = [
     (0.2, 'younger brother'),
-    (0.2, 'older brother'),
+    (0.1, 'older brother'),
     (0.2, 'younger sister'),
-    (0.2, 'older sister'),
+    (0.1, 'older sister'),
     (0.8, 'brother'),
     (0.4, 'step-brother'),
     (0.8, 'sister'),
@@ -225,6 +226,115 @@ my_teacher_possessive_adj = [
 ]
 my_teacher_possessive_adj = [ (k[0], k[1] + "'s ") for k in my_teacher_possessive_adj ]
 violated_words = [
+    (4.0, 'assisted someone in violating'),
+    (4.0, 'assisted someone in breaking'),
+    (4.0, 'assisted someone in disobeying'),
+    (3.0, 'helped someone violate'),
+    (3.0, 'helped someone disobey'),
+    (3.0, 'helped someone break'),
+    (3.0, 'helped violate'),
+    (3.0, 'helped break'),
+    (3.0, 'helped disobey'),
+
+    (0.4, 'helped someone have an abortion, violating'),
+    (0.4, 'helped someone have an abortion, breaking'),
+    (0.4, 'helped someone have an abortion in violation of'),
+
+    (0.4, 'helped someone get an abortion, violating'),
+    (0.4, 'helped someone get an abortion, breaking'),
+    (0.4, 'helped someone get an abortion in violation of'),
+
+    (0.4, 'helped someone to get an abortion, violating'),
+    (0.4, 'helped someone to get an abortion, breaking'),
+    (0.4, 'helped someone to get an abortion in violation of'),
+
+    (0.1, 'helped someone kill her child and violate'),
+    (0.1, 'helped someone kill her baby and violate'),
+    (0.1, 'helped someone kill a child and violate'),
+    (0.1, 'helped someone kill a baby and violate'),
+
+    (0.1, 'helped someone kill a child and disobey'),
+    (0.1, 'helped someone kill a baby and disobey'),
+    (0.1, 'helped someone kill her child and disobey'),
+    (0.1, 'helped someone kill her baby and disobey'),
+
+    (0.4, 'helped someone abort her child and violate'),
+    (0.4, 'helped someone abort her baby and violate'),
+    (0.4, 'helped someone abort her child and disobey'),
+    (0.4, 'helped someone abort her baby and disobey'),
+
+    (0.1, 'helped someone murder her child and violate'),
+    (0.1, 'helped someone murder her baby and violate'),
+
+    (0.1, 'helped someone murder a child and disobey'),
+    (0.1, 'helped someone murder a baby and disobey'),
+    (0.1, 'helped someone murder her child and disobey'),
+    (0.1, 'helped someone murder her baby and disobey'),
+
+    (0.1, 'helped someone murder her child in violation of'),
+    (0.1, 'helped someone murder her baby in violation of'),
+    (0.1, 'helped someone murder a child in violation of'),
+    (0.1, 'helped someone murder a baby in violation of'),
+
+    (0.1, 'helped someone kill her child in violation of'),
+    (0.1, 'helped someone kill her baby in violation of'),
+    (0.1, 'helped someone kill a child in violation of'),
+    (0.1, 'helped someone kill a baby in violation of'),
+
+    (0.1, 'helped someone kill her child, violating'),
+    (0.1, 'helped someone kill her baby, violating'),
+    (0.1, 'helped someone kill a child, violating'),
+    (0.1, 'helped someone kill a baby, violating'),
+
+    (0.1, 'helped someone murder a child, violating'),
+    (0.1, 'helped someone murder a baby, violating'),
+    (0.1, 'helped someone murder her child, violating'),
+    (0.1, 'helped someone murder her baby, violating'),
+
+    (0.1, 'aided in the killing of a child, violating'),
+    (0.1, 'aided in the killing of a baby, violating'),
+    (0.1, 'aided in the killing of her child, violating'),
+    (0.1, 'aided in the killing of her baby, violating'),
+    (0.1, 'aided her in killing her baby, violating'),
+    (0.1, 'aided her in killing her child, violating'),
+
+    (0.1, 'aided in the killing of a child, disobeying'),
+    (0.1, 'aided in the killing of a baby, disobeying'),
+    (0.1, 'aided her in killing her baby, disobeying'),
+    (0.1, 'aided her in killing her child, disobeying'),
+
+    (0.1, 'aided in the killing of a child, breaking'),
+    (0.1, 'aided in the killing of a baby, breaking'),
+    (0.1, 'aided in the killing of her child, breaking'),
+    (0.1, 'aided in the killing of her baby, breaking'),
+    (0.1, 'aided in the killing of a child, breaking'),
+    (0.1, 'aided in the killing of a baby, breaking'),
+
+    (0.1, 'aided her in killing her baby, breaking'),
+    (0.1, 'aided her in killing her child, breaking'),
+    (0.1, 'aided her in killing her baby, breaking'),
+    (0.1, 'aided her in killing her child, breaking'),
+
+    (0.1, 'aided in the killing of a child, in violation of'),
+    (0.1, 'aided in the killing of a baby, in violation of'),
+    (0.1, 'aided in the killing of her child, in violation of'),
+    (0.1, 'aided in the killing of her baby, in violation of'),
+    (0.1, 'aided in the killing of a child, in violation of'),
+    (0.1, 'aided in the killing of a baby, in violation of'),
+
+    (0.1, 'aided her in killing her baby, in violation of'),
+    (0.1, 'aided her in killing her child, in violation of'),
+    (0.1, 'aided her in killing her baby, in violation of'),
+    (0.1, 'aided her in killing her child, in violation of'),
+
+    (0.1, 'aided in the killing of a child and violated'),
+    (0.1, 'aided in the killing of a baby and violated'),
+    (0.1, 'aided in the killing of her child and violated'),
+    (0.1, 'aided in the killing of her baby and violated'),
+
+    (0.1, 'aided her in killing her baby and violated'),
+    (0.1, 'aided her in killing her child and violated'),
+
     (5.0, 'violated'),
     (2.5, 'intentionally violated'),
     (2.5, 'knowingly violated'),
@@ -256,9 +366,6 @@ violated_words = [
     (2.0, 'colluded in breaking'),
     (2.0, 'colluded to violate'),
     (2.0, 'conspired in violating')
-
-
-
 ]
 days_of_the_week = [
     'Sunday',
@@ -301,11 +408,15 @@ future_time_frames = [
 future_time_frames.extend(['next ' + k for k in days_of_the_week])
 future_time_frames.extend(['on ' + k for k in days_of_the_week])
 abortion_ban_words = [
+    'abortion ban', 'ban on abortion', 'law on abortion', 'recent abortion law', 'abortion restrictions', 'restrictions on abortion',
     'ban', 'law', 'legislation', 'abortion law', 'abortion ban', 'abortion restriction', 'anti-abortion law',
     'anti-abortion legislation', 'abortion prohibition', 'ban on abortion'
 ]
-abortion_ban_words = [*["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words]]
-abortion_ban_words.extend(['Texas law', 'the new law', 'Texas legislation', 'the new legislation', 'the new rule',
+abortion_ban_words = [ *["recently passed " + k for k in abortion_ban_words], *[k for k in abortion_ban_words] ]
+abortion_ban_words = [ *["Texas's " + k for k in abortion_ban_words], *["the " + k for k in abortion_ban_words] ]
+abortion_ban_words.extend(['Texas law', 'the new law', 'Texas law on abortion', 'the Texas law on abortion', 'the Texas abortion law',
+    'the new Texas abortion law', 'the recently passed Texas abortion law', 'new abortion law'])
+abortion_ban_words.extend(['Texas legislation', 'the new legislation', 'the new rule',
                            'the new regulation', 'Texas regulation', 'legal code'])
 
 def gen_abortion_prompt_I(accused):
@@ -331,7 +442,7 @@ def gen_abortion_prompt_My(accused):
     else:
         abortion_prompt += random.choice(will_get_words)
     abortion_prompt += ' an'
-    abortion_prompt += random.choices(['', ' illegal', ' unlawful', ' illicit', ' aspiration'], weights=[0.20, 0.20, 0.20, 0.20, 0.20], k=1)[0]
+    abortion_prompt += random.choices(['', ' illegal', ' unlawful', ' illicit', ' aspiration'], weights=[0.5, 0.10, 0.10, 0.10, 0.10], k=1)[0]
     abortion_prompt += ' abortion'
     if random.random() > 0.5:
         abortion_prompt += ' '
@@ -342,7 +453,10 @@ def gen_abortion_prompt_My(accused):
     abortion_prompt += '.'
     return abortion_prompt
 
+counter = 0
+
 def gen_abortion_prompt():
+    global counter
     accused_family_person = random_select_weighted_list(my_family_possessive_adj)
     accused_family_person += random_select_weighted_list(my_family_words)
     accused_nonfamily_person = random_select_weighted_list(my_nonfamily_possessive_adj)
@@ -355,9 +469,12 @@ def gen_abortion_prompt():
         (0.5, accused_teacher)
     ])
     abortion_prompts = [
-        (5.2, gen_abortion_prompt_I(accused)),
-        (2.6, gen_abortion_prompt_My(accused))
+        (1.0, gen_abortion_prompt_I(accused)),
+        (1.0, gen_abortion_prompt_My(accused))
     ]
+    counter += 1
+    if random.random() < 0.001:
+        print('\r\x1b[K' + str(counter), end='')
     return random_select_weighted_list(abortion_prompts)
     #return add_typos(random_select_weighted_list(abortion_prompts))
 
@@ -378,21 +495,21 @@ def check_ngram_frequency(prompt):
         quadgram_counter[cur_quadgram] += 1
     return prompt
 
+def write_ngram_to_file(counter, filename, total):
+    with open(filename, 'w') as writer:
+        for k, v in counter.most_common():
+            writer.write( "{} {}\n".format(k, float(v) / total) )
+            if float(v) / total < 0.001:
+                break
+
 if __name__ == "__main__":
     total_number = 2000000
-    sample_abortion_prompts = { check_ngram_frequency(gen_abortion_prompt()) for k in range(total_number) }
+    sample_abortion_prompts = [ check_ngram_frequency(gen_abortion_prompt()) for k in range(total_number) ]
     for k in sorted(list(sample_abortion_prompts)[:200], key = lambda o: random.random()):
         print(k)
-    print('Duplicates: ' + str(total_number - len(sample_abortion_prompts)))
-    print('Unique:     ' + str(len(sample_abortion_prompts)))
-    print('I [think]:  ' + str(len([k for k in sample_abortion_prompts if 'I' in k])))
-    print('Other:      ' + str(len(sample_abortion_prompts) - len([k for k in sample_abortion_prompts if 'I' in k])))
-    with open('bigram_freq.txt', 'w') as writer:
-        for k,v in  bigram_counter.most_common():
-            writer.write( "{} {}\n".format(k,v) )
-    with open('trigram_freq.txt', 'w') as writer:
-        for k,v in  trigram_counter.most_common():
-            writer.write( "{} {}\n".format(k,v) )
-    with open('quadgram_freq.txt', 'w') as writer:
-        for k,v in  quadgram_counter.most_common():
-            writer.write( "{} {}\n".format(k,v) )
+    unique = len(set(sample_abortion_prompts))
+    print('Duplicates: ' + str(total_number - unique))
+    print('Unique:     ' + str(unique))
+    write_ngram_to_file(bigram_counter, 'bigram_freq.txt', len(sample_abortion_prompts))
+    write_ngram_to_file(trigram_counter, 'trigram_freq.txt', len(sample_abortion_prompts))
+    write_ngram_to_file(quadgram_counter, 'quadgram_freq.txt', len(sample_abortion_prompts))
